@@ -25,9 +25,7 @@
       background: var(--bg);
       color: var(--text);
       line-height: 1.7;
-      scroll-behavior: smooth;
     }
-    section[id] { scroll-margin-top: 88px; }
     a { color: inherit; text-decoration: none; }
     .container { width: min(1140px, 92%); margin-inline: auto; }
 
@@ -91,13 +89,11 @@
     }
     .hero h1 {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(3.2rem, 9vw, 6.8rem);
-      margin-bottom: 1rem;
+      font-size: clamp(2.1rem, 5vw, 4rem);
+      margin-bottom: .6rem;
       color: var(--gold);
-      line-height: 1.1;
     }
-    .hero p { max-width: 640px; margin: 0 auto 2rem; color: #efe8d5; font-size: 1.12rem; }
-    .hero .btn-primary { padding: .95rem 2rem; font-size: 1.05rem; min-width: 190px; }
+    .hero p { max-width: 640px; margin: 0 auto 1.3rem; color: #efe8d5; }
 
     section { padding: 5rem 0; }
     .cards {
@@ -174,55 +170,16 @@
     .steps { font-size: .9rem; color: var(--muted); }
     .modal-body { padding: 1.2rem; }
     .hidden { display: none !important; }
-    .service-options { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px,1fr)); gap: 1rem; }
+    .service-options { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px,1fr)); gap: .8rem; }
 
     .option {
-      border: 1px solid rgba(201,168,76,.28);
-      background: linear-gradient(165deg, #131313, #191919);
-      padding: 1rem;
-      border-radius: 14px;
-      cursor: pointer;
-      text-align: right;
-      transition: all .22s ease;
-      min-height: 122px;
-    }
-    .option:hover {
-      transform: translateY(-2px);
-      border-color: rgba(201,168,76,.55);
-    }
-    .option .name { display:block; font-size:1.35rem; font-weight:700; color:#f9f3e2; margin-bottom:.35rem; }
-    .option .price { display:block; color:var(--gold); font-weight:700; margin-bottom:.25rem; }
-    .option .duration { color:var(--muted); font-size:.95rem; }
-    .option.active {
-      border: 1px solid var(--gold);
-      background: linear-gradient(165deg, rgba(201,168,76,.2), rgba(201,168,76,.08));
-      box-shadow: inset 0 0 0 1px rgba(201,168,76,.22);
-    }
-
-    .date-cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
-      gap: .55rem;
-      margin-bottom: .8rem;
-    }
-    .date-card {
-      border: 1px solid rgba(201,168,76,.28);
+      border: 1px solid rgba(201,168,76,.3);
       background: #151515;
-      border-radius: 10px;
-      padding: .55rem .3rem;
-      text-align: center;
+      padding: .8rem;
+      border-radius: 12px;
       cursor: pointer;
-      color: #efe6cd;
-      min-height: 84px;
     }
-    .date-card .day { display:block; font-size:.88rem; color:var(--muted); margin-bottom:.25rem; }
-    .date-card .num { display:block; font-size:1.35rem; font-weight:700; color:#fff3ce; line-height:1.1; }
-    .date-card .month { font-size:.8rem; color:#dccb9b; }
-    .date-card.active {
-      border-color: var(--gold);
-      background: rgba(201,168,76,.16);
-      box-shadow: inset 0 0 0 1px rgba(201,168,76,.28);
-    }
+    .option.active { outline: 2px solid var(--gold); }
 
     .slot-grid {
       display: grid;
@@ -264,15 +221,12 @@
     .admin-toolbar { display: flex; gap: .7rem; flex-wrap: wrap; align-items: center; justify-content: space-between; margin-bottom: 1rem; }
     .stats { display: grid; gap: .8rem; grid-template-columns: repeat(auto-fit, minmax(160px,1fr)); margin-bottom: 1rem; }
     .stat strong { font-size: 1.3rem; color: var(--gold); display: block; }
-    .stat span { color: #e9dfc2; font-size: .95rem; }
 
-    .admin-layout { display:grid; grid-template-columns: 2.1fr 1fr; gap: .9rem; align-items: start; }
     .calendar {
       overflow: auto;
       border: 1px solid rgba(201,168,76,.2);
       border-radius: 12px;
       margin-bottom: 1rem;
-      background: #0f0f0f;
     }
     .calendar-grid {
       min-width: 780px;
@@ -286,10 +240,7 @@
       min-height: 52px;
       font-size: .8rem;
     }
-    .cal-head { background: #141414; color: var(--gold); font-weight: 700; position: sticky; top: 0; }
-    .cal-head.day-head { cursor:pointer; transition: background .2s ease; }
-    .cal-head.day-head:hover { background: #1b1b1b; }
-    .cal-head.day-head.active { background: rgba(201,168,76,.16); }
+    .cal-head { background: #121212; color: var(--gold); font-weight: 700; position: sticky; top: 0; }
     .cal-time { color: var(--muted); background: #0f0f0f; }
     .booking-pill {
       background: rgba(201,168,76,.15);
@@ -299,9 +250,6 @@
       margin-bottom: .22rem;
       font-size: .72rem;
     }
-    .side-panel h3 { margin-top: 0; color: var(--gold); }
-    .side-booking { padding:.6rem; border:1px solid rgba(201,168,76,.24); border-radius:10px; margin-bottom:.55rem; background:#121212; }
-    .side-booking small { color: var(--muted); display:block; }
 
     table { width: 100%; border-collapse: collapse; overflow: hidden; border-radius: 10px; }
     th, td { border-bottom: 1px solid rgba(201,168,76,.16); padding: .55rem; text-align: right; font-size: .9rem; }
@@ -311,7 +259,6 @@
     @media (max-width: 720px) {
       .nav-links a { display: none; }
       .hero { min-height: 80vh; }
-      .admin-layout { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -325,6 +272,7 @@
           <a href="#about">عن الحلاق</a>
           <a href="#reviews">التقييمات</a>
           <a href="#contact">التواصل</a>
+          <a class="btn" href="#admin">لوحة الإدارة</a>
           <button class="btn btn-primary" id="openBooking">احجز الآن</button>
         </div>
       </div>
@@ -401,6 +349,10 @@
           </select>
           <button class="btn" id="adminLogout">تسجيل الخروج</button>
         </div>
+        <aside class="card side-panel">
+          <h3 id="sidePanelTitle">حجوزات اليوم المحدد</h3>
+          <div id="dayBookingsPanel">اختر يوماً من التقويم لعرض الحجوزات.</div>
+        </aside>
       </div>
 
       <div class="stats">
@@ -409,14 +361,8 @@
         <div class="card stat"><span>متوسط الحجز</span><strong id="statAvg">0 ر.س</strong></div>
       </div>
 
-      <div class="admin-layout">
-        <div class="calendar">
-          <div class="calendar-grid" id="calendarGrid"></div>
-        </div>
-        <aside class="card side-panel">
-          <h3 id="sidePanelTitle">حجوزات اليوم المحدد</h3>
-          <div id="dayBookingsPanel">اختر يوماً من التقويم لعرض الحجوزات.</div>
-        </aside>
+      <div class="calendar">
+        <div class="calendar-grid" id="calendarGrid"></div>
       </div>
 
       <div class="card">
@@ -448,8 +394,10 @@
         </div>
 
         <div id="step2" class="hidden">
-          <label>اختر اليوم</label>
-          <div id="dateCards" class="date-cards"></div>
+          <div class="field">
+            <label for="bookingDate">التاريخ</label>
+            <input id="bookingDate" type="date" />
+          </div>
           <p style="margin:.5rem 0 .3rem">الأوقات المتاحة</p>
           <div id="slotGrid" class="slot-grid"></div>
           <div class="error" id="slotError"></div>
@@ -461,8 +409,7 @@
 
         <div id="step3" class="hidden">
           <div class="field"><label for="customerName">الاسم</label><input id="customerName" type="text" /></div>
-          <div class="field"><label for="customerPhone">الجوال</label><input id="customerPhone" type="tel" inputmode="numeric" maxlength="10" placeholder="05XXXXXXXX" /></div>
-          <div class="error" id="phoneError"></div>
+          <div class="field"><label for="customerPhone">الجوال</label><input id="customerPhone" type="tel" /></div>
           <div class="error" id="finalError"></div>
           <div class="success" id="finalSuccess"></div>
           <div class="actions">
@@ -491,9 +438,6 @@
   let bookingsCache = [];
   let selectedService = null;
   let selectedTime = null;
-  let selectedDate = todayISO();
-  let selectedAdminDate = todayISO();
-  const arabicDays = ['الأحد','الاثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'];
 
   const el = (id) => document.getElementById(id);
   const fmtMoney = (v) => `${v} ر.س`;
@@ -565,9 +509,8 @@
 
     el('modalServiceOptions').innerHTML = SERVICES.map((s,i) => `
       <button class="option ${i===0?'active':''}" data-service="${s.name}">
-        <span class="name">${s.name}</span>
-        <span class="price">${fmtMoney(s.price)}</span>
-        <span class="duration">المدة: ${s.duration} دقيقة</span>
+        <strong style="display:block;color:var(--gold)">${s.name}</strong>
+        <span>${fmtMoney(s.price)} • ${s.duration} دقيقة</span>
       </button>
     `).join('');
     selectedService = SERVICES[0];
@@ -586,34 +529,8 @@
     [1,2,3].forEach(x => el(`step${x}`).classList.toggle('hidden', x !== n));
   }
 
-  function renderDateCards() {
-    const base = new Date();
-    el('dateCards').innerHTML = Array.from({length: 7}, (_, i) => {
-      const d = new Date(base);
-      d.setDate(base.getDate() + i);
-      const iso = d.toISOString().slice(0,10);
-      const isActive = iso === selectedDate ? 'active' : '';
-      return `
-        <button class="date-card ${isActive}" data-date="${iso}">
-          <span class="day">${arabicDays[d.getDay()]}</span>
-          <span class="num">${String(d.getDate()).padStart(2,'0')}</span>
-          <span class="month">${String(d.getMonth()+1).padStart(2,'0')}/${d.getFullYear()}</span>
-        </button>
-      `;
-    }).join('');
-
-    document.querySelectorAll('.date-card').forEach(card => {
-      card.onclick = async () => {
-        selectedDate = card.dataset.date;
-        document.querySelectorAll('.date-card').forEach(c => c.classList.remove('active'));
-        card.classList.add('active');
-        await renderSlots();
-      };
-    });
-  }
-
   async function renderSlots() {
-    const date = selectedDate;
+    const date = el('bookingDate').value;
     if (!date) return;
     bookingsCache = await getBookings();
     const booked = new Set(bookingsCache.filter(b => b.booking_date === date).map(b => b.booking_time));
@@ -655,21 +572,7 @@
     });
   }
 
-  function renderDayPanel(allData) {
-    const list = allData
-      .filter(b => b.booking_date === selectedAdminDate)
-      .sort((a,b) => b.booking_time.localeCompare(a.booking_time));
-    el('sidePanelTitle').textContent = `حجوزات ${selectedAdminDate}`;
-    el('dayBookingsPanel').innerHTML = list.length ? list.map(b => `
-      <div class="side-booking">
-        <strong>${b.customer_name}</strong>
-        <small>${b.booking_time} • ${b.service}</small>
-        <small>${b.phone} • ${fmtMoney(b.price)}</small>
-      </div>
-    `).join('') : '<span style="color:var(--muted)">لا توجد حجوزات لهذا اليوم.</span>';
-  }
-
-  function renderCalendar(weekData, allData) {
+  function renderCalendar(weekData) {
     const grid = el('calendarGrid');
     const now = new Date();
     const day = now.getDay();
@@ -688,9 +591,7 @@
 
     let html = '<div class="cal-head"></div>';
     days.forEach(d => {
-      const iso = d.toISOString().slice(0,10);
-      const active = selectedAdminDate === iso ? 'active' : '';
-      html += `<button class="cal-head day-head ${active}" data-day="${iso}">${d.toLocaleDateString('ar-SA', { weekday:'short', day:'2-digit', month:'2-digit' })}</button>`;
+      html += `<div class="cal-head">${d.toLocaleDateString('ar-SA', { weekday:'short', day:'2-digit', month:'2-digit' })}</div>`;
     });
 
     slots.forEach(t => {
@@ -698,18 +599,10 @@
       days.forEach(d => {
         const iso = d.toISOString().slice(0,10);
         const list = lookup.get(`${iso}|${t}`) || [];
-        html += `<div class="cal-cell" data-day="${iso}">${list.map(x => `<div class='booking-pill'>${x.customer_name} • ${x.service}</div>`).join('')}</div>`;
+        html += `<div class="cal-cell">${list.map(x => `<div class='booking-pill'>${x.customer_name} • ${x.service}</div>`).join('')}</div>`;
       });
     });
     grid.innerHTML = html;
-
-    document.querySelectorAll('[data-day]').forEach(item => {
-      item.onclick = () => {
-        selectedAdminDate = item.dataset.day;
-        renderCalendar(weekData, allData);
-      };
-    });
-    renderDayPanel(allData);
   }
 
   function renderStats(list) {
@@ -744,17 +637,16 @@
     const filtered = filterBookings(all, mode);
     renderStats(filtered);
     renderAdminTable(filtered);
-    renderCalendar(filterBookings(all, 'week'), all);
+    renderCalendar(filterBookings(all, 'week'));
   }
 
   function openModal() {
     el('bookingModal').classList.add('active');
-    selectedDate = todayISO();
+    el('bookingDate').min = todayISO();
+    el('bookingDate').value = todayISO();
     showStep(1);
-    renderDateCards();
     renderSlots();
     el('slotError').textContent = '';
-    el('phoneError').textContent = '';
     el('finalError').textContent = '';
     el('finalSuccess').textContent = '';
     el('customerName').value = '';
@@ -765,18 +657,13 @@
 
   async function submitBooking() {
     const name = el('customerName').value.trim();
-    const phone = el('customerPhone').value.replace(/\D/g, '');
-    const date = selectedDate;
-    el('phoneError').textContent = '';
+    const phone = el('customerPhone').value.trim();
+    const date = el('bookingDate').value;
     el('finalError').textContent = '';
     el('finalSuccess').textContent = '';
 
     if (!name || !phone) {
       el('finalError').textContent = 'يرجى إدخال الاسم ورقم الجوال.';
-      return;
-    }
-    if (!/^\d{10}$/.test(phone)) {
-      el('phoneError').textContent = 'رقم الجوال يجب أن يحتوي على 10 أرقام بالضبط.';
       return;
     }
     if (!selectedService || !selectedTime || !date) {
@@ -817,10 +704,7 @@
     el('backTo1').onclick = () => showStep(1);
     el('backTo2').onclick = () => showStep(2);
 
-    el('customerPhone').addEventListener('input', (e) => {
-      e.target.value = e.target.value.replace(/\D/g, '').slice(0, 10);
-      if (e.target.value.length === 10) el('phoneError').textContent = '';
-    });
+    el('bookingDate').onchange = renderSlots;
     el('toStep3').onclick = () => {
       if (!selectedTime) {
         el('slotError').textContent = 'اختر وقتاً متاحاً أولاً.';
@@ -862,7 +746,6 @@
 
     el('public-app').style.display = 'none';
     el('admin-app').style.display = 'block';
-    selectedAdminDate = todayISO();
     await refreshAdmin();
   }
 
