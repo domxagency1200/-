@@ -1,0 +1,1313 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>فن الرجل — حلاقة فاخرة</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root {
+  --bg: #080808;
+  --bg2: #0f0f0f;
+  --bg3: #161616;
+  --gold: #C9A84C;
+  --gold-light: #e8c96a;
+  --gold-dim: rgba(201,168,76,0.15);
+  --gold-border: rgba(201,168,76,0.3);
+  --text: #f0ead6;
+  --text-muted: #8a8070;
+  --white: #ffffff;
+  --radius: 12px;
+  --transition: 0.3s cubic-bezier(0.4,0,0.2,1);
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:'Tajawal',sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  direction:rtl;
+  overflow-x:hidden;
+}
+a{color:inherit;text-decoration:none;}
+img{display:block;}
+
+/* SCROLLBAR */
+::-webkit-scrollbar{width:6px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:var(--gold-border);border-radius:3px;}
+
+/* ─── NAVBAR ─── */
+.nav{
+  position:fixed;top:0;right:0;left:0;z-index:100;
+  padding:0 5%;
+  height:72px;
+  display:flex;align-items:center;justify-content:space-between;
+  background:rgba(8,8,8,0.85);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--gold-border);
+  transition:var(--transition);
+}
+.nav-logo{
+  font-family:'Playfair Display',serif;
+  font-size:1.5rem;
+  color:var(--gold);
+  letter-spacing:2px;
+}
+.nav-links{
+  display:flex;gap:2rem;align-items:center;
+  list-style:none;
+}
+.nav-links a{
+  font-size:0.9rem;font-weight:500;
+  color:var(--text-muted);
+  transition:color var(--transition);
+  position:relative;
+}
+.nav-links a::after{
+  content:'';position:absolute;bottom:-4px;right:0;
+  width:0;height:1px;background:var(--gold);
+  transition:width var(--transition);
+}
+.nav-links a:hover{color:var(--gold);}
+.nav-links a:hover::after{width:100%;}
+.nav-book-btn{
+  background:var(--gold);color:#000;
+  padding:0.55rem 1.4rem;
+  border-radius:50px;
+  font-weight:700;font-size:0.9rem;
+  cursor:pointer;border:none;
+  transition:var(--transition);
+  font-family:'Tajawal',sans-serif;
+}
+.nav-book-btn:hover{background:var(--gold-light);transform:translateY(-1px);}
+
+/* ─── HERO ─── */
+.hero{
+  position:relative;
+  min-height:100vh;
+  display:flex;align-items:center;justify-content:center;
+  text-align:center;
+  overflow:hidden;
+}
+.hero-bg{
+  position:absolute;inset:0;
+  background:url('https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=1920&q=80') center/cover no-repeat;
+  transform:scale(1.05);
+  animation:zoomOut 20s ease-out forwards;
+}
+@keyframes zoomOut{to{transform:scale(1);}}
+.hero-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to bottom, rgba(8,8,8,0.7) 0%, rgba(8,8,8,0.55) 50%, rgba(8,8,8,0.9) 100%);
+}
+.hero-content{
+  position:relative;z-index:2;
+  padding:0 1rem;
+  animation:fadeUp 1.2s ease both;
+}
+@keyframes fadeUp{from{opacity:0;transform:translateY(40px);}to{opacity:1;transform:translateY(0);}}
+.hero-tag{
+  display:inline-block;
+  font-size:0.8rem;letter-spacing:4px;text-transform:uppercase;
+  color:var(--gold);
+  border:1px solid var(--gold-border);
+  padding:0.35rem 1.2rem;border-radius:50px;
+  margin-bottom:1.5rem;
+  animation:fadeUp 1.2s 0.2s ease both;
+}
+.hero h1{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(4rem,10vw,8rem);
+  font-weight:900;
+  color:var(--white);
+  line-height:1;
+  letter-spacing:-1px;
+  margin-bottom:1.2rem;
+  animation:fadeUp 1.2s 0.3s ease both;
+}
+.hero h1 span{color:var(--gold);}
+.hero p{
+  font-size:clamp(1rem,2vw,1.2rem);
+  color:rgba(240,234,214,0.75);
+  max-width:520px;
+  margin:0 auto 2.5rem;
+  line-height:1.8;
+  animation:fadeUp 1.2s 0.4s ease both;
+}
+.hero-cta{
+  display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;
+  animation:fadeUp 1.2s 0.5s ease both;
+}
+.btn-primary{
+  background:var(--gold);color:#000;
+  padding:0.85rem 2.2rem;border-radius:50px;
+  font-weight:700;font-size:1rem;
+  cursor:pointer;border:none;
+  font-family:'Tajawal',sans-serif;
+  transition:var(--transition);
+  box-shadow:0 4px 24px rgba(201,168,76,0.3);
+}
+.btn-primary:hover{background:var(--gold-light);transform:translateY(-2px);box-shadow:0 8px 32px rgba(201,168,76,0.4);}
+.btn-outline{
+  background:transparent;color:var(--text);
+  padding:0.85rem 2.2rem;border-radius:50px;
+  font-weight:500;font-size:1rem;
+  cursor:pointer;border:1px solid var(--gold-border);
+  font-family:'Tajawal',sans-serif;
+  transition:var(--transition);
+}
+.btn-outline:hover{border-color:var(--gold);color:var(--gold);}
+.hero-scroll{
+  position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:0.5rem;
+  color:var(--text-muted);font-size:0.75rem;letter-spacing:2px;
+  animation:bounce 2s infinite;
+}
+@keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0);}50%{transform:translateX(-50%) translateY(8px);}}
+.hero-scroll::after{content:'';display:block;width:1px;height:40px;background:linear-gradient(to bottom,var(--gold),transparent);}
+
+/* ─── SECTION BASE ─── */
+.section{padding:6rem 5%;}
+.section-label{
+  font-size:0.75rem;letter-spacing:5px;text-transform:uppercase;
+  color:var(--gold);margin-bottom:0.8rem;
+}
+.section-title{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(2rem,4vw,3rem);
+  font-weight:700;color:var(--white);
+  margin-bottom:0.8rem;
+}
+.section-sub{color:var(--text-muted);font-size:1rem;line-height:1.7;max-width:500px;}
+.divider{width:60px;height:2px;background:var(--gold);margin:1.5rem 0;}
+
+/* ─── SERVICES ─── */
+#services{background:var(--bg2);}
+.services-header{margin-bottom:3.5rem;}
+.services-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:1.5rem;
+}
+.service-card{
+  background:var(--bg3);
+  border:1px solid rgba(255,255,255,0.06);
+  border-radius:var(--radius);
+  padding:2.5rem 2rem;
+  position:relative;overflow:hidden;
+  cursor:pointer;
+  transition:var(--transition);
+}
+.service-card::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,var(--gold-dim),transparent);
+  opacity:0;transition:opacity var(--transition);
+}
+.service-card:hover{border-color:var(--gold-border);transform:translateY(-4px);}
+.service-card:hover::before{opacity:1;}
+.service-icon{
+  width:52px;height:52px;
+  background:var(--gold-dim);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:1.5rem;
+  font-size:1.5rem;
+}
+.service-name{
+  font-family:'Playfair Display',serif;
+  font-size:1.4rem;color:var(--white);
+  margin-bottom:0.5rem;
+}
+.service-desc{color:var(--text-muted);font-size:0.9rem;line-height:1.7;margin-bottom:1.5rem;}
+.service-meta{display:flex;justify-content:space-between;align-items:center;}
+.service-price{font-size:1.6rem;font-weight:700;color:var(--gold);}
+.service-price span{font-size:0.85rem;font-weight:400;color:var(--text-muted);}
+.service-duration{
+  font-size:0.8rem;color:var(--text-muted);
+  background:rgba(255,255,255,0.05);
+  padding:0.3rem 0.8rem;border-radius:50px;
+  border:1px solid rgba(255,255,255,0.08);
+}
+.service-book-btn{
+  margin-top:1.5rem;width:100%;
+  background:transparent;color:var(--gold);
+  border:1px solid var(--gold-border);
+  padding:0.7rem;border-radius:50px;
+  font-family:'Tajawal',sans-serif;
+  font-weight:600;font-size:0.9rem;
+  cursor:pointer;transition:var(--transition);
+}
+.service-book-btn:hover{background:var(--gold);color:#000;}
+
+/* ─── ABOUT ─── */
+#about{background:var(--bg);}
+.about-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:5rem;align-items:center;
+}
+.about-img-wrap{
+  position:relative;
+  border-radius:var(--radius);overflow:hidden;
+  aspect-ratio:4/5;
+}
+.about-img-wrap img{width:100%;height:100%;object-fit:cover;}
+.about-img-wrap::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(to top,var(--bg) 0%,transparent 40%);
+}
+.about-badge{
+  position:absolute;bottom:2rem;right:2rem;z-index:2;
+  background:var(--bg3);border:1px solid var(--gold-border);
+  border-radius:var(--radius);padding:1rem 1.5rem;
+  text-align:center;
+}
+.about-badge-num{font-size:2rem;font-weight:900;color:var(--gold);font-family:'Playfair Display',serif;}
+.about-badge-txt{font-size:0.75rem;color:var(--text-muted);}
+.about-text .section-sub{max-width:100%;}
+.about-stats{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:1.5rem;margin-top:2.5rem;
+}
+.stat{text-align:center;padding:1.2rem;background:var(--bg3);border-radius:var(--radius);border:1px solid rgba(255,255,255,0.06);}
+.stat-num{font-size:1.8rem;font-weight:700;color:var(--gold);font-family:'Playfair Display',serif;}
+.stat-label{font-size:0.75rem;color:var(--text-muted);margin-top:0.3rem;}
+
+/* ─── REVIEWS ─── */
+#reviews{background:var(--bg2);}
+.reviews-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  gap:1.5rem;margin-top:3rem;
+}
+.review-card{
+  background:var(--bg3);
+  border:1px solid rgba(255,255,255,0.06);
+  border-radius:var(--radius);
+  padding:2rem;
+  transition:var(--transition);
+}
+.review-card:hover{border-color:var(--gold-border);transform:translateY(-3px);}
+.review-stars{color:var(--gold);font-size:0.9rem;margin-bottom:1rem;letter-spacing:2px;}
+.review-text{color:var(--text-muted);line-height:1.8;font-size:0.95rem;margin-bottom:1.5rem;}
+.review-author{display:flex;align-items:center;gap:0.8rem;}
+.review-avatar{
+  width:42px;height:42px;border-radius:50%;
+  background:var(--gold-dim);border:2px solid var(--gold-border);
+  display:flex;align-items:center;justify-content:center;
+  font-weight:700;color:var(--gold);font-size:1rem;
+}
+.review-name{font-weight:600;color:var(--white);font-size:0.9rem;}
+.review-date{font-size:0.75rem;color:var(--text-muted);}
+
+/* ─── CONTACT ─── */
+#contact{background:var(--bg);}
+.contact-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;
+  margin-top:3rem;
+}
+.contact-info-item{
+  display:flex;align-items:flex-start;gap:1rem;
+  margin-bottom:2rem;
+}
+.contact-icon{
+  width:46px;height:46px;border-radius:50%;
+  background:var(--gold-dim);border:1px solid var(--gold-border);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.1rem;flex-shrink:0;
+}
+.contact-info-text strong{display:block;color:var(--white);margin-bottom:0.3rem;}
+.contact-info-text span{color:var(--text-muted);font-size:0.9rem;}
+.contact-form{
+  background:var(--bg3);border:1px solid rgba(255,255,255,0.06);
+  border-radius:var(--radius);padding:2.5rem;
+}
+.form-group{margin-bottom:1.2rem;}
+.form-group label{display:block;font-size:0.85rem;color:var(--text-muted);margin-bottom:0.5rem;}
+.form-group input,.form-group textarea,.form-group select{
+  width:100%;background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.1);
+  border-radius:8px;padding:0.8rem 1rem;
+  color:var(--text);font-family:'Tajawal',sans-serif;font-size:0.95rem;
+  transition:border-color var(--transition);
+  outline:none;
+}
+.form-group input:focus,.form-group textarea:focus{border-color:var(--gold-border);}
+.form-group textarea{resize:vertical;min-height:100px;}
+.form-submit{width:100%;margin-top:0.5rem;}
+
+/* ─── FOOTER ─── */
+footer{
+  background:var(--bg2);
+  border-top:1px solid var(--gold-border);
+  padding:3rem 5% 2rem;
+}
+.footer-inner{
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1.5rem;
+}
+.footer-logo{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--gold);}
+.footer-copy{color:var(--text-muted);font-size:0.82rem;}
+.footer-links{display:flex;gap:1.5rem;}
+.footer-links a{color:var(--text-muted);font-size:0.85rem;transition:color var(--transition);}
+.footer-links a:hover{color:var(--gold);}
+
+/* ─── MODAL ─── */
+.modal-overlay{
+  position:fixed;inset:0;z-index:200;
+  background:rgba(0,0,0,0.85);
+  backdrop-filter:blur(8px);
+  display:flex;align-items:center;justify-content:center;
+  padding:1rem;
+  opacity:0;pointer-events:none;
+  transition:opacity var(--transition);
+}
+.modal-overlay.open{opacity:1;pointer-events:all;}
+.modal{
+  background:var(--bg2);
+  border:1px solid var(--gold-border);
+  border-radius:16px;
+  width:100%;max-width:580px;
+  max-height:90vh;overflow-y:auto;
+  transform:translateY(20px) scale(0.97);
+  transition:transform var(--transition);
+}
+.modal-overlay.open .modal{transform:translateY(0) scale(1);}
+.modal-head{
+  padding:1.8rem 2rem 0;
+  display:flex;justify-content:space-between;align-items:center;
+  border-bottom:1px solid rgba(255,255,255,0.06);
+  padding-bottom:1.2rem;
+  position:sticky;top:0;background:var(--bg2);z-index:2;
+}
+.modal-title{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--gold);}
+.modal-step-label{font-size:0.8rem;color:var(--text-muted);}
+.modal-close{
+  background:none;border:none;color:var(--text-muted);
+  cursor:pointer;font-size:1.4rem;line-height:1;
+  transition:color var(--transition);padding:0.2rem;
+}
+.modal-close:hover{color:var(--gold);}
+.modal-body{padding:2rem;}
+.step-progress{
+  display:flex;gap:0.5rem;margin-bottom:2rem;
+}
+.step-dot{
+  flex:1;height:3px;border-radius:3px;
+  background:rgba(255,255,255,0.1);
+  transition:background var(--transition);
+}
+.step-dot.active{background:var(--gold);}
+
+/* Step 1 - Service cards */
+.modal-service-cards{display:flex;flex-direction:column;gap:0.8rem;}
+.modal-service-card{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.2rem 1.5rem;
+  border:2px solid rgba(255,255,255,0.08);
+  border-radius:10px;
+  cursor:pointer;
+  background:rgba(255,255,255,0.02);
+  transition:var(--transition);
+}
+.modal-service-card:hover{border-color:var(--gold-border);background:var(--gold-dim);}
+.modal-service-card.selected{border-color:var(--gold);background:var(--gold-dim);}
+.modal-service-card-name{font-size:1.1rem;font-weight:700;color:var(--white);}
+.modal-service-card-dur{font-size:0.8rem;color:var(--text-muted);margin-top:0.2rem;}
+.modal-service-card-price{font-size:1.3rem;font-weight:700;color:var(--gold);text-align:left;}
+.modal-service-card-price small{display:block;font-size:0.7rem;color:var(--text-muted);font-weight:400;}
+
+/* Step 2 - Date/Time */
+.day-picker{display:flex;gap:0.6rem;margin-bottom:1.8rem;overflow-x:auto;padding-bottom:0.5rem;}
+.day-picker::-webkit-scrollbar{height:4px;}
+.day-card{
+  min-width:66px;
+  border:2px solid rgba(255,255,255,0.08);
+  border-radius:10px;padding:0.7rem 0.5rem;
+  text-align:center;cursor:pointer;
+  background:rgba(255,255,255,0.02);
+  transition:var(--transition);flex-shrink:0;
+}
+.day-card:hover{border-color:var(--gold-border);}
+.day-card.selected{border-color:var(--gold);background:var(--gold-dim);}
+.day-card.today .day-name::after{content:'اليوم';display:block;font-size:0.6rem;color:var(--gold);}
+.day-name{font-size:0.75rem;color:var(--text-muted);margin-bottom:0.3rem;}
+.day-num{font-size:1.2rem;font-weight:700;color:var(--white);}
+.day-card.selected .day-num{color:var(--gold);}
+.time-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0.6rem;}
+.time-slot{
+  border:1px solid rgba(255,255,255,0.1);
+  border-radius:8px;padding:0.55rem 0.3rem;
+  text-align:center;font-size:0.85rem;
+  cursor:pointer;color:var(--text-muted);
+  background:rgba(255,255,255,0.02);
+  transition:var(--transition);font-family:'Tajawal',sans-serif;
+}
+.time-slot:hover:not(.booked){border-color:var(--gold-border);color:var(--text);}
+.time-slot.selected{border-color:var(--gold);background:var(--gold-dim);color:var(--gold);}
+.time-slot.booked{opacity:0.3;cursor:not-allowed;text-decoration:line-through;}
+.time-label{font-size:0.8rem;color:var(--text-muted);margin-bottom:0.8rem;}
+
+/* Step 3 - Customer info */
+.modal-field{margin-bottom:1.2rem;}
+.modal-field label{display:block;font-size:0.85rem;color:var(--text-muted);margin-bottom:0.5rem;}
+.modal-field input{
+  width:100%;background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.1);
+  border-radius:8px;padding:0.85rem 1rem;
+  color:var(--text);font-family:'Tajawal',sans-serif;font-size:0.95rem;
+  outline:none;transition:border-color var(--transition);
+  direction:rtl;
+}
+.modal-field input:focus{border-color:var(--gold-border);}
+.modal-field input.error{border-color:#e55;}
+.field-error{color:#e55;font-size:0.78rem;margin-top:0.35rem;display:none;}
+.field-error.show{display:block;}
+.booking-summary{
+  background:rgba(201,168,76,0.08);
+  border:1px solid var(--gold-border);
+  border-radius:10px;padding:1.2rem;
+  margin-bottom:1.5rem;
+}
+.summary-row{display:flex;justify-content:space-between;margin-bottom:0.5rem;font-size:0.9rem;}
+.summary-row:last-child{margin-bottom:0;}
+.summary-row span:first-child{color:var(--text-muted);}
+.summary-row span:last-child{color:var(--white);font-weight:600;}
+.modal-footer{
+  display:flex;justify-content:space-between;align-items:center;
+  margin-top:2rem;padding-top:1.5rem;
+  border-top:1px solid rgba(255,255,255,0.06);
+}
+.btn-back{
+  background:none;border:1px solid rgba(255,255,255,0.12);
+  color:var(--text-muted);padding:0.7rem 1.5rem;
+  border-radius:50px;cursor:pointer;
+  font-family:'Tajawal',sans-serif;font-size:0.9rem;
+  transition:var(--transition);
+}
+.btn-back:hover{border-color:var(--gold-border);color:var(--text);}
+.btn-next{
+  background:var(--gold);color:#000;
+  padding:0.7rem 2rem;border-radius:50px;
+  font-weight:700;font-size:0.95rem;
+  cursor:pointer;border:none;
+  font-family:'Tajawal',sans-serif;
+  transition:var(--transition);
+}
+.btn-next:hover{background:var(--gold-light);}
+.btn-next:disabled{opacity:0.4;cursor:not-allowed;}
+.success-screen{text-align:center;padding:2rem 0;}
+.success-icon{font-size:3.5rem;margin-bottom:1rem;}
+.success-title{font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--gold);margin-bottom:0.5rem;}
+.success-msg{color:var(--text-muted);line-height:1.7;}
+
+/* ─── ADMIN ─── */
+#admin-section{display:none;min-height:100vh;padding-top:80px;background:var(--bg);}
+#admin-section.show{display:block;}
+.admin-login{
+  min-height:100vh;display:flex;align-items:center;justify-content:center;
+  padding:2rem;
+}
+.admin-login-card{
+  background:var(--bg2);border:1px solid var(--gold-border);
+  border-radius:16px;padding:3rem;width:100%;max-width:380px;text-align:center;
+}
+.admin-login-title{font-family:'Playfair Display',serif;font-size:1.8rem;color:var(--gold);margin-bottom:0.5rem;}
+.admin-login-sub{color:var(--text-muted);font-size:0.9rem;margin-bottom:2rem;}
+.admin-pass-input{
+  width:100%;background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.12);
+  border-radius:8px;padding:0.9rem 1rem;
+  color:var(--text);font-family:'Tajawal',sans-serif;font-size:1rem;
+  outline:none;text-align:center;letter-spacing:4px;
+  transition:border-color var(--transition);margin-bottom:1rem;
+}
+.admin-pass-input:focus{border-color:var(--gold-border);}
+.admin-error{color:#e55;font-size:0.85rem;margin-top:-0.5rem;margin-bottom:1rem;display:none;}
+.admin-dashboard{padding:2rem 5%;}
+.admin-topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:2.5rem;flex-wrap:wrap;gap:1rem;}
+.admin-title{font-family:'Playfair Display',serif;font-size:1.8rem;color:var(--gold);}
+.admin-logout{background:none;border:1px solid rgba(255,255,255,0.12);color:var(--text-muted);padding:0.5rem 1.2rem;border-radius:50px;cursor:pointer;font-family:'Tajawal',sans-serif;transition:var(--transition);}
+.admin-logout:hover{border-color:#e55;color:#e55;}
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.2rem;margin-bottom:2.5rem;}
+.stat-card{background:var(--bg3);border:1px solid rgba(255,255,255,0.06);border-radius:var(--radius);padding:1.5rem;}
+.stat-card-label{font-size:0.8rem;color:var(--text-muted);margin-bottom:0.5rem;}
+.stat-card-val{font-size:2rem;font-weight:700;color:var(--gold);font-family:'Playfair Display',serif;}
+.admin-filters{display:flex;gap:0.6rem;margin-bottom:2rem;flex-wrap:wrap;}
+.filter-btn{
+  background:none;border:1px solid rgba(255,255,255,0.1);
+  color:var(--text-muted);padding:0.5rem 1.2rem;border-radius:50px;
+  cursor:pointer;font-family:'Tajawal',sans-serif;font-size:0.85rem;
+  transition:var(--transition);
+}
+.filter-btn:hover,.filter-btn.active{border-color:var(--gold);color:var(--gold);}
+
+/* Calendar */
+.calendar-wrap{background:var(--bg3);border:1px solid rgba(255,255,255,0.06);border-radius:var(--radius);overflow:hidden;margin-bottom:2rem;}
+.calendar-header{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:1.2rem 1.5rem;border-bottom:1px solid rgba(255,255,255,0.06);
+}
+.cal-title{font-family:'Playfair Display',serif;color:var(--white);}
+.cal-nav{display:flex;gap:0.5rem;}
+.cal-nav button{background:none;border:1px solid rgba(255,255,255,0.1);color:var(--text-muted);width:32px;height:32px;border-radius:50%;cursor:pointer;transition:var(--transition);font-size:0.9rem;}
+.cal-nav button:hover{border-color:var(--gold);color:var(--gold);}
+.calendar-grid{display:grid;grid-template-columns:80px repeat(7,1fr);}
+.cal-time-col{border-left:1px solid rgba(255,255,255,0.06);}
+.cal-day-head{
+  text-align:center;padding:0.8rem 0.3rem;
+  border-bottom:1px solid rgba(255,255,255,0.06);
+  border-right:1px solid rgba(255,255,255,0.04);
+  font-size:0.8rem;
+}
+.cal-day-head .d-name{color:var(--text-muted);}
+.cal-day-head .d-num{font-size:1.1rem;font-weight:700;color:var(--white);margin-top:0.2rem;}
+.cal-day-head.today .d-num{color:var(--gold);}
+.cal-time-cell{
+  height:52px;border-bottom:1px solid rgba(255,255,255,0.04);
+  padding:0 0.5rem;display:flex;align-items:center;
+  font-size:0.72rem;color:var(--text-muted);
+}
+.cal-slot{
+  height:52px;border-bottom:1px solid rgba(255,255,255,0.04);
+  border-right:1px solid rgba(255,255,255,0.04);
+  position:relative;cursor:pointer;
+  transition:background var(--transition);
+}
+.cal-slot:hover{background:rgba(255,255,255,0.02);}
+.cal-event{
+  position:absolute;inset:2px;
+  background:linear-gradient(135deg,rgba(201,168,76,0.25),rgba(201,168,76,0.1));
+  border:1px solid var(--gold-border);
+  border-radius:6px;padding:0.2rem 0.5rem;
+  font-size:0.7rem;color:var(--gold);
+  overflow:hidden;cursor:pointer;
+}
+
+/* Bookings Table */
+.bookings-section{margin-top:2rem;}
+.bookings-title{font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--white);margin-bottom:1rem;}
+.bookings-table-wrap{overflow-x:auto;border-radius:var(--radius);border:1px solid rgba(255,255,255,0.06);}
+table{width:100%;border-collapse:collapse;}
+thead tr{background:rgba(255,255,255,0.03);}
+th{padding:0.9rem 1rem;text-align:right;font-size:0.8rem;color:var(--text-muted);font-weight:500;border-bottom:1px solid rgba(255,255,255,0.06);}
+td{padding:0.9rem 1rem;font-size:0.85rem;color:var(--text);border-bottom:1px solid rgba(255,255,255,0.04);}
+tr:last-child td{border-bottom:none;}
+tr:hover td{background:rgba(255,255,255,0.02);}
+.badge{padding:0.25rem 0.7rem;border-radius:50px;font-size:0.75rem;font-weight:600;}
+.badge-confirmed{background:rgba(80,200,100,0.12);color:#5cc870;border:1px solid rgba(80,200,100,0.2);}
+.delete-btn{background:none;border:1px solid rgba(229,85,85,0.2);color:#e55;padding:0.3rem 0.7rem;border-radius:6px;cursor:pointer;font-size:0.78rem;font-family:'Tajawal',sans-serif;transition:var(--transition);}
+.delete-btn:hover{background:rgba(229,85,85,0.1);}
+.empty-state{text-align:center;padding:3rem;color:var(--text-muted);}
+.empty-state-icon{font-size:2.5rem;margin-bottom:0.5rem;}
+
+/* Day detail panel */
+.day-detail-panel{
+  background:var(--bg3);border:1px solid var(--gold-border);
+  border-radius:var(--radius);padding:1.5rem;margin-bottom:1.5rem;
+  display:none;
+}
+.day-detail-panel.show{display:block;}
+.day-detail-title{font-family:'Playfair Display',serif;color:var(--gold);margin-bottom:1rem;}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  .nav-links{display:none;}
+  .about-grid,.contact-grid{grid-template-columns:1fr;}
+  .about-img-wrap{aspect-ratio:16/9;}
+  .time-grid{grid-template-columns:repeat(3,1fr);}
+  .calendar-grid{display:block;}
+  .calendar-grid{overflow-x:auto;}
+}
+</style>
+</head>
+<body>
+
+<!-- ─── NAVBAR ─── -->
+<nav class="nav" id="mainNav">
+  <span class="nav-logo">فن الرجل</span>
+  <ul class="nav-links">
+    <li><a href="#services">الخدمات</a></li>
+    <li><a href="#about">عن الحلاق</a></li>
+    <li><a href="#reviews">التقييمات</a></li>
+    <li><a href="#contact">التواصل</a></li>
+  </ul>
+  <button class="nav-book-btn" onclick="openModal()">احجز الآن</button>
+</nav>
+
+<!-- ─── HERO ─── -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-tag">✦ حلاقة فاخرة بالرياض</div>
+    <h1>فن <span>الرجل</span></h1>
+    <p>حلاقة راقية تجمع بين الدقة، الأناقة، والاهتمام بالتفاصيل. احجز موعدك خلال دقائق.</p>
+    <div class="hero-cta">
+      <button class="btn-primary" onclick="openModal()">ابدأ الحجز</button>
+      <button class="btn-outline" onclick="document.getElementById('services').scrollIntoView({behavior:'smooth'})">استعرض الخدمات</button>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <span>اكتشف</span>
+  </div>
+</section>
+
+<!-- ─── SERVICES ─── -->
+<section class="section" id="services">
+  <div class="services-header">
+    <div class="section-label">✦ خدماتنا</div>
+    <h2 class="section-title">اختر ما يناسبك</h2>
+    <div class="divider"></div>
+    <p class="section-sub">نقدم خدمات حلاقة احترافية بأعلى معايير الجودة والنظافة.</p>
+  </div>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-icon">✂️</div>
+      <div class="service-name">قصة شعر</div>
+      <div class="service-desc">قصة عصرية أو كلاسيكية بأسلوب احترافي يناسب شكل وجهك.</div>
+      <div class="service-meta">
+        <div class="service-price">60 <span>ر.س</span></div>
+        <div class="service-duration">⏱ 30 دقيقة</div>
+      </div>
+      <button class="service-book-btn" onclick="openModal('قصة شعر',60,30)">احجز الآن</button>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🪒</div>
+      <div class="service-name">فيد + لحية</div>
+      <div class="service-desc">تشكيل احترافي للفيد مع تهذيب اللحية وتنسيقها بدقة عالية.</div>
+      <div class="service-meta">
+        <div class="service-price">90 <span>ر.س</span></div>
+        <div class="service-duration">⏱ 45 دقيقة</div>
+      </div>
+      <button class="service-book-btn" onclick="openModal('فيد + لحية',90,45)">احجز الآن</button>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">👑</div>
+      <div class="service-name">الباقة الكاملة</div>
+      <div class="service-desc">قصة + فيد + لحية + عناية بالبشرة. التجربة الأكثر فخامة.</div>
+      <div class="service-meta">
+        <div class="service-price">150 <span>ر.س</span></div>
+        <div class="service-duration">⏱ 60 دقيقة</div>
+      </div>
+      <button class="service-book-btn" onclick="openModal('الباقة الكاملة',150,60)">احجز الآن</button>
+    </div>
+  </div>
+</section>
+
+<!-- ─── ABOUT ─── -->
+<section class="section" id="about">
+  <div class="about-grid">
+    <div class="about-img-wrap">
+      <img src="https://images.unsplash.com/photo-1621605815971-fbc98d665033?w=800&q=80" alt="الحلاق" loading="lazy">
+      <div class="about-badge">
+        <div class="about-badge-num">10+</div>
+        <div class="about-badge-txt">سنوات خبرة</div>
+      </div>
+    </div>
+    <div class="about-text">
+      <div class="section-label">✦ عن الحلاق</div>
+      <h2 class="section-title">أسلوب يعكس شخصيتك</h2>
+      <div class="divider"></div>
+      <p class="section-sub">أنا متخصص في القصات الحديثة والكلاسيكية مع خبرة أكثر من 10 سنوات في إبراز أفضل نسخة من مظهرك.<br><br>أستخدم أدوات احترافية ومعايير تعقيم دقيقة لضمان تجربة راقية وآمنة في كل زيارة.</p>
+      <div class="about-stats">
+        <div class="stat">
+          <div class="stat-num">+5k</div>
+          <div class="stat-label">عميل سعيد</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">4.9</div>
+          <div class="stat-label">تقييم متوسط</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">+3</div>
+          <div class="stat-label">جوائز محلية</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── REVIEWS ─── -->
+<section class="section" id="reviews">
+  <div class="section-label">✦ آراء العملاء</div>
+  <h2 class="section-title">ماذا يقولون عنا</h2>
+  <div class="divider"></div>
+  <div class="reviews-grid">
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">أفضل حلاقة في المدينة بدون منافسة. اهتمام بالتفاصيل لا مثيل له. أصبح وجهتي الثابتة منذ سنتين.</p>
+      <div class="review-author">
+        <div class="review-avatar">س</div>
+        <div>
+          <div class="review-name">سلمان العتيبي</div>
+          <div class="review-date">منذ أسبوع</div>
+        </div>
+      </div>
+    </div>
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">المكان راقٍ جداً والحجز سهل. الخدمة سريعة والنتيجة مميزة. أنصح بالباقة الكاملة بشدة.</p>
+      <div class="review-author">
+        <div class="review-avatar">خ</div>
+        <div>
+          <div class="review-name">خالد الشمري</div>
+          <div class="review-date">منذ أسبوعين</div>
+        </div>
+      </div>
+    </div>
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">الفيد واللحية مضبوطة باحترافية. أنظف وأرقى حلاقة جربتها. يستحق كل ريال.</p>
+      <div class="review-author">
+        <div class="review-avatar">ن</div>
+        <div>
+          <div class="review-name">ناصر القحطاني</div>
+          <div class="review-date">منذ شهر</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CONTACT ─── -->
+<section class="section" id="contact">
+  <div class="section-label">✦ تواصل معنا</div>
+  <h2 class="section-title">نحن هنا لك</h2>
+  <div class="divider"></div>
+  <div class="contact-grid">
+    <div>
+      <div class="contact-info-item">
+        <div class="contact-icon">📍</div>
+        <div class="contact-info-text">
+          <strong>الموقع</strong>
+          <span>الرياض — حي الياسمين، شارع الأمير سلطان</span>
+        </div>
+      </div>
+      <div class="contact-info-item">
+        <div class="contact-icon">📞</div>
+        <div class="contact-info-text">
+          <strong>الهاتف</strong>
+          <span>0512345678</span>
+        </div>
+      </div>
+      <div class="contact-info-item">
+        <div class="contact-icon">🕐</div>
+        <div class="contact-info-text">
+          <strong>أوقات العمل</strong>
+          <span>يومياً من 9:00 ص إلى 6:00 م</span>
+        </div>
+      </div>
+      <div class="contact-info-item">
+        <div class="contact-icon">✦</div>
+        <div class="contact-info-text">
+          <strong>سناب وإنستقرام</strong>
+          <span>@fanaalrajul</span>
+        </div>
+      </div>
+    </div>
+    <div class="contact-form">
+      <h3 style="font-family:'Playfair Display',serif;color:var(--white);margin-bottom:1.5rem;">أرسل رسالة</h3>
+      <div class="form-group">
+        <label>الاسم</label>
+        <input type="text" placeholder="اسمك الكريم">
+      </div>
+      <div class="form-group">
+        <label>رقم الجوال</label>
+        <input type="tel" placeholder="05xxxxxxxx">
+      </div>
+      <div class="form-group">
+        <label>الرسالة</label>
+        <textarea placeholder="اكتب رسالتك هنا..."></textarea>
+      </div>
+      <button class="btn-primary form-submit" onclick="alert('تم إرسال رسالتك، سنتواصل معك قريباً!')">إرسال</button>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">فن الرجل</div>
+    <div class="footer-copy">© 2026 فن الرجل — جميع الحقوق محفوظة</div>
+    <div class="footer-links">
+      <a href="#home">الرئيسية</a>
+      <a href="#services">الخدمات</a>
+      <a href="#contact">التواصل</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ─── ADMIN SECTION ─── -->
+<div id="admin-section">
+  <!-- Login -->
+  <div id="admin-login" class="admin-login">
+    <div class="admin-login-card">
+      <div style="font-size:2rem;margin-bottom:1rem;">🔐</div>
+      <div class="admin-login-title">لوحة التحكم</div>
+      <div class="admin-login-sub">أدخل كلمة المرور للمتابعة</div>
+      <input type="password" class="admin-pass-input" id="adminPassInput" placeholder="••••••••" onkeydown="if(event.key==='Enter')adminLogin()">
+      <div class="admin-error" id="adminError">كلمة المرور غير صحيحة</div>
+      <button class="btn-primary" style="width:100%" onclick="adminLogin()">دخول</button>
+    </div>
+  </div>
+  <!-- Dashboard -->
+  <div id="admin-dashboard" class="admin-dashboard" style="display:none">
+    <div class="admin-topbar">
+      <div class="admin-title">لوحة التحكم — فن الرجل</div>
+      <button class="admin-logout" onclick="adminLogout()">تسجيل خروج</button>
+    </div>
+    <div class="stats-grid" id="statsGrid"></div>
+    <div class="admin-filters">
+      <button class="filter-btn active" onclick="setFilter('all',this)">الكل</button>
+      <button class="filter-btn" onclick="setFilter('today',this)">اليوم</button>
+      <button class="filter-btn" onclick="setFilter('week',this)">هذا الأسبوع</button>
+      <button class="filter-btn" onclick="setFilter('month',this)">هذا الشهر</button>
+    </div>
+    <div class="calendar-wrap">
+      <div class="calendar-header">
+        <div class="cal-title" id="calTitle"></div>
+        <div class="cal-nav">
+          <button onclick="moveWeek(-1)">→</button>
+          <button onclick="moveWeek(1)">←</button>
+        </div>
+      </div>
+      <div style="overflow-x:auto">
+        <div class="calendar-grid" id="calGrid"></div>
+      </div>
+    </div>
+    <div class="day-detail-panel" id="dayDetailPanel">
+      <div class="day-detail-title" id="dayDetailTitle"></div>
+      <div id="dayDetailContent"></div>
+    </div>
+    <div class="bookings-section">
+      <div class="bookings-title">الحجوزات</div>
+      <div class="bookings-table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>الاسم</th><th>الجوال</th><th>الخدمة</th><th>التاريخ</th><th>الوقت</th><th>السعر</th><th>الحالة</th><th></th>
+            </tr>
+          </thead>
+          <tbody id="bookingsBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── BOOKING MODAL ─── -->
+<div class="modal-overlay" id="modalOverlay" onclick="handleOverlayClick(event)">
+  <div class="modal" id="modal">
+    <div class="modal-head">
+      <div>
+        <div class="modal-title">حجز موعد</div>
+        <div class="modal-step-label" id="stepLabel">الخطوة 1 من 3</div>
+      </div>
+      <button class="modal-close" onclick="closeModal()">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="step-progress">
+        <div class="step-dot active" id="dot1"></div>
+        <div class="step-dot" id="dot2"></div>
+        <div class="step-dot" id="dot3"></div>
+      </div>
+      <div id="step1">
+        <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:1.2rem;">اختر الخدمة المناسبة لك</p>
+        <div class="modal-service-cards">
+          <div class="modal-service-card" onclick="selectService('قصة شعر',60,30,this)">
+            <div>
+              <div class="modal-service-card-name">قصة شعر ✂️</div>
+              <div class="modal-service-card-dur">⏱ 30 دقيقة</div>
+            </div>
+            <div class="modal-service-card-price">60<small>ر.س</small></div>
+          </div>
+          <div class="modal-service-card" onclick="selectService('فيد + لحية',90,45,this)">
+            <div>
+              <div class="modal-service-card-name">فيد + لحية 🪒</div>
+              <div class="modal-service-card-dur">⏱ 45 دقيقة</div>
+            </div>
+            <div class="modal-service-card-price">90<small>ر.س</small></div>
+          </div>
+          <div class="modal-service-card" onclick="selectService('الباقة الكاملة',150,60,this)">
+            <div>
+              <div class="modal-service-card-name">الباقة الكاملة 👑</div>
+              <div class="modal-service-card-dur">⏱ 60 دقيقة</div>
+            </div>
+            <div class="modal-service-card-price">150<small>ر.س</small></div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <span></span>
+          <button class="btn-next" id="next1" onclick="goStep(2)" disabled>التالي</button>
+        </div>
+      </div>
+      <div id="step2" style="display:none">
+        <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:0.8rem;">اختر اليوم</p>
+        <div class="day-picker" id="dayPicker"></div>
+        <p class="time-label">الأوقات المتاحة</p>
+        <div class="time-grid" id="timeGrid"></div>
+        <div class="modal-footer">
+          <button class="btn-back" onclick="goStep(1)">رجوع</button>
+          <button class="btn-next" id="next2" onclick="goStep(3)" disabled>التالي</button>
+        </div>
+      </div>
+      <div id="step3" style="display:none">
+        <div class="booking-summary" id="bookingSummary"></div>
+        <div class="modal-field">
+          <label>الاسم الكامل</label>
+          <input type="text" id="cusName" placeholder="اسمك الكريم">
+        </div>
+        <div class="modal-field">
+          <label>رقم الجوال</label>
+          <input type="tel" id="cusPhone" placeholder="05xxxxxxxx" maxlength="10" oninput="validatePhone()">
+          <div class="field-error" id="phoneError">رقم الجوال يجب أن يكون 10 أرقام</div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn-back" onclick="goStep(2)">رجوع</button>
+          <button class="btn-next" onclick="submitBooking()">تأكيد الحجز</button>
+        </div>
+      </div>
+      <div id="step4" style="display:none">
+        <div class="success-screen">
+          <div class="success-icon">🎉</div>
+          <div class="success-title">تم الحجز بنجاح!</div>
+          <p class="success-msg" id="successMsg"></p>
+          <button class="btn-primary" style="margin-top:1.5rem" onclick="closeModal()">حسناً</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ─── SUPABASE / LOCALSTORAGE ───
+const SB_URL = '';
+const SB_KEY = '';
+let supabase = null;
+let useSupabase = false;
+
+try {
+  if(SB_URL && SB_KEY) {
+    supabase = window.supabase.createClient(SB_URL, SB_KEY);
+    useSupabase = true;
+  }
+} catch(e){}
+
+function getBookings() {
+  try { return JSON.parse(localStorage.getItem('bookings')||'[]'); } catch(e){ return []; }
+}
+function saveBookings(b) {
+  localStorage.setItem('bookings', JSON.stringify(b));
+}
+function addBooking(b) {
+  const all = getBookings();
+  b.id = Date.now().toString();
+  b.created_at = new Date().toISOString();
+  b.status = 'confirmed';
+  all.push(b);
+  saveBookings(all);
+  if(useSupabase) supabase.from('bookings').insert(b).then(()=>{}).catch(()=>{});
+  return b;
+}
+function deleteBooking(id) {
+  const all = getBookings().filter(b=>b.id!==id);
+  saveBookings(all);
+  if(useSupabase) supabase.from('bookings').delete().eq('id',id).then(()=>{}).catch(()=>{});
+}
+function isSlotBooked(date, time) {
+  return getBookings().some(b=>b.booking_date===date && b.booking_time===time);
+}
+
+// ─── BOOKING STATE ───
+let booking = { service:'', price:0, duration:0, date:'', time:'' };
+const TIMES = ['09:00','09:30','10:00','10:30','11:00','11:30','12:00','12:30','13:00','13:30','14:00','14:30','15:00','15:30','16:00','16:30','17:00','17:30'];
+const AR_DAYS = ['الأحد','الاثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'];
+
+function openModal(service, price, duration) {
+  booking = { service:'', price:0, duration:0, date:'', time:'' };
+  document.querySelectorAll('.modal-service-card').forEach(c=>c.classList.remove('selected'));
+  document.getElementById('next1').disabled = true;
+  goStep(1);
+  if(service) {
+    setTimeout(()=>{
+      const cards = document.querySelectorAll('.modal-service-card');
+      cards.forEach(c=>{ if(c.querySelector('.modal-service-card-name').textContent.startsWith(service)) c.click(); });
+    },50);
+  }
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.body.style.overflow='';
+}
+function handleOverlayClick(e) { if(e.target===document.getElementById('modalOverlay')) closeModal(); }
+
+function selectService(name, price, duration, el) {
+  booking.service=name; booking.price=price; booking.duration=duration;
+  document.querySelectorAll('.modal-service-card').forEach(c=>c.classList.remove('selected'));
+  el.classList.add('selected');
+  document.getElementById('next1').disabled=false;
+}
+
+function goStep(n) {
+  [1,2,3,4].forEach(i=>{ document.getElementById('step'+i).style.display='none'; document.getElementById('dot'+i) && (document.getElementById('dot'+i).classList.remove('active')); });
+  document.getElementById('step'+n).style.display='block';
+  for(let i=1;i<=n;i++) { document.getElementById('dot'+i) && document.getElementById('dot'+i).classList.add('active'); }
+  document.getElementById('stepLabel').textContent = n<=3 ? `الخطوة ${n} من 3` : 'اكتمل الحجز';
+  if(n===2) buildDateTimePicker();
+  if(n===3) buildSummary();
+}
+
+function buildDateTimePicker() {
+  const picker = document.getElementById('dayPicker');
+  picker.innerHTML='';
+  const today = new Date();
+  for(let i=0;i<7;i++) {
+    const d = new Date(today); d.setDate(today.getDate()+i);
+    const dateStr = d.toISOString().split('T')[0];
+    const el = document.createElement('div');
+    el.className='day-card'+(i===0?' today':'');
+    el.innerHTML=`<div class="day-name">${AR_DAYS[d.getDay()]}</div><div class="day-num">${d.getDate()}</div>`;
+    el.onclick=()=>{ document.querySelectorAll('.day-card').forEach(c=>c.classList.remove('selected')); el.classList.add('selected'); booking.date=dateStr; booking.time=''; document.getElementById('next2').disabled=true; buildTimeGrid(); };
+    if(booking.date===dateStr) el.classList.add('selected');
+    picker.appendChild(el);
+  }
+  buildTimeGrid();
+}
+
+function buildTimeGrid() {
+  const grid = document.getElementById('timeGrid');
+  grid.innerHTML='';
+  if(!booking.date){ grid.innerHTML='<p style="color:var(--text-muted);font-size:0.85rem;grid-column:1/-1">اختر يوماً أولاً</p>'; return; }
+  TIMES.forEach(t=>{
+    const booked = isSlotBooked(booking.date, t);
+    const el = document.createElement('div');
+    el.className='time-slot'+(booked?' booked':'')+(booking.time===t?' selected':'');
+    el.textContent=t;
+    if(!booked) el.onclick=()=>{ document.querySelectorAll('.time-slot').forEach(s=>s.classList.remove('selected')); el.classList.add('selected'); booking.time=t; document.getElementById('next2').disabled=false; };
+    grid.appendChild(el);
+  });
+}
+
+function buildSummary() {
+  const d = new Date(booking.date+'T12:00:00');
+  const arDate = `${AR_DAYS[d.getDay()]} ${d.getDate()}/${d.getMonth()+1}/${d.getFullYear()}`;
+  document.getElementById('bookingSummary').innerHTML=`
+    <div class="summary-row"><span>الخدمة</span><span>${booking.service}</span></div>
+    <div class="summary-row"><span>التاريخ</span><span>${arDate}</span></div>
+    <div class="summary-row"><span>الوقت</span><span>${booking.time}</span></div>
+    <div class="summary-row"><span>المدة</span><span>${booking.duration} دقيقة</span></div>
+    <div class="summary-row" style="border-top:1px solid var(--gold-border);padding-top:0.5rem;margin-top:0.5rem"><span>السعر</span><span style="color:var(--gold);font-size:1.1rem">${booking.price} ر.س</span></div>
+  `;
+}
+
+function validatePhone() {
+  const p = document.getElementById('cusPhone').value;
+  const err = document.getElementById('phoneError');
+  const valid = /^05\d{8}$/.test(p);
+  document.getElementById('cusPhone').classList.toggle('error', p.length===10 && !valid);
+  err.classList.toggle('show', p.length===10 && !valid);
+  return valid;
+}
+
+function submitBooking() {
+  const name = document.getElementById('cusName').value.trim();
+  const phone = document.getElementById('cusPhone').value.trim();
+  if(!name){ alert('الرجاء إدخال الاسم'); return; }
+  if(!/^05\d{8}$/.test(phone)){ document.getElementById('phoneError').classList.add('show'); document.getElementById('cusPhone').classList.add('error'); return; }
+  if(isSlotBooked(booking.date, booking.time)){ alert('هذا الوقت محجوز، الرجاء اختيار وقت آخر'); goStep(2); return; }
+  const b = {
+    customer_name: name, phone,
+    service: booking.service, price: booking.price, duration: booking.duration,
+    booking_date: booking.date, booking_time: booking.time
+  };
+  addBooking(b);
+  const d = new Date(booking.date+'T12:00:00');
+  document.getElementById('successMsg').innerHTML=`<br>تم تأكيد حجزك بنجاح<br><br>📌 <strong>${booking.service}</strong><br>📅 ${AR_DAYS[d.getDay()]} ${d.getDate()}/${d.getMonth()+1}<br>⏰ ${booking.time}<br>💰 ${booking.price} ر.س<br><br>نراك قريباً! 🙌`;
+  goStep(4);
+}
+
+// ─── ADMIN ───
+let adminFilter = 'all';
+let calWeekOffset = 0;
+
+function checkAdminHash() {
+  const isAdmin = location.hash==='#admin';
+  document.getElementById('admin-section').classList.toggle('show', isAdmin);
+  document.getElementById('mainNav').style.display = isAdmin?'none':'flex';
+  document.querySelector('.hero').style.display = isAdmin?'none':'flex';
+  ['services','about','reviews','contact'].forEach(id=>{ const el=document.getElementById(id); if(el) el.style.display=isAdmin?'none':''; });
+  document.querySelector('footer').style.display = isAdmin?'none':'';
+  if(isAdmin && sessionStorage.getItem('adminAuth')==='1') showDashboard();
+}
+
+function adminLogin() {
+  if(document.getElementById('adminPassInput').value==='fan2025') {
+    sessionStorage.setItem('adminAuth','1');
+    document.getElementById('adminError').style.display='none';
+    showDashboard();
+  } else {
+    document.getElementById('adminError').style.display='block';
+    document.getElementById('adminPassInput').value='';
+  }
+}
+
+function adminLogout() {
+  sessionStorage.removeItem('adminAuth');
+  document.getElementById('admin-dashboard').style.display='none';
+  document.getElementById('admin-login').style.display='flex';
+}
+
+function showDashboard() {
+  document.getElementById('admin-login').style.display='none';
+  document.getElementById('admin-dashboard').style.display='block';
+  renderStats();
+  renderCalendar();
+  renderBookings();
+}
+
+function setFilter(f, el) {
+  adminFilter=f;
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');
+  renderStats(); renderCalendar(); renderBookings();
+}
+
+function getFilteredBookings() {
+  const all = getBookings();
+  const now = new Date(); now.setHours(0,0,0,0);
+  if(adminFilter==='all') return all;
+  if(adminFilter==='today') return all.filter(b=>b.booking_date===now.toISOString().split('T')[0]);
+  if(adminFilter==='week') {
+    const end=new Date(now); end.setDate(now.getDate()+7);
+    return all.filter(b=>{ const d=new Date(b.booking_date+'T12:00:00'); return d>=now&&d<=end; });
+  }
+  if(adminFilter==='month') {
+    return all.filter(b=>{ const d=new Date(b.booking_date+'T12:00:00'); return d.getMonth()===now.getMonth()&&d.getFullYear()===now.getFullYear(); });
+  }
+  return all;
+}
+
+function renderStats() {
+  const bks = getFilteredBookings();
+  const rev = bks.reduce((s,b)=>s+Number(b.price),0);
+  const avg = bks.length?Math.round(rev/bks.length):0;
+  document.getElementById('statsGrid').innerHTML=`
+    <div class="stat-card"><div class="stat-card-label">إجمالي الحجوزات</div><div class="stat-card-val">${bks.length}</div></div>
+    <div class="stat-card"><div class="stat-card-label">الإيرادات</div><div class="stat-card-val">${rev} <span style="font-size:1rem">ر.س</span></div></div>
+    <div class="stat-card"><div class="stat-card-label">متوسط الحجز</div><div class="stat-card-val">${avg} <span style="font-size:1rem">ر.س</span></div></div>
+  `;
+}
+
+function moveWeek(d) { calWeekOffset+=d; renderCalendar(); }
+
+function renderCalendar() {
+  const today = new Date(); today.setHours(0,0,0,0);
+  const weekStart = new Date(today);
+  weekStart.setDate(today.getDate() - today.getDay() + calWeekOffset*7);
+  const days=[];
+  for(let i=0;i<7;i++){ const d=new Date(weekStart); d.setDate(weekStart.getDate()+i); days.push(d); }
+  document.getElementById('calTitle').textContent=`${days[0].getDate()}/${days[0].getMonth()+1} — ${days[6].getDate()}/${days[6].getMonth()+1}/${days[6].getFullYear()}`;
+  const bks=getBookings();
+  const grid=document.getElementById('calGrid');
+  grid.innerHTML='';
+  // header
+  const timeHead=document.createElement('div');
+  timeHead.className='cal-day-head';timeHead.style.cssText='background:var(--bg2);';timeHead.innerHTML='<div class="d-name" style="font-size:0.7rem">الوقت</div>';
+  grid.appendChild(timeHead);
+  days.forEach((d,i)=>{
+    const el=document.createElement('div');
+    const isToday=d.getTime()===today.getTime();
+    el.className='cal-day-head'+(isToday?' today':'');
+    el.innerHTML=`<div class="d-name">${AR_DAYS[d.getDay()]}</div><div class="d-num">${d.getDate()}</div>`;
+    const ds=d.toISOString().split('T')[0];
+    el.style.cursor='pointer';
+    el.onclick=()=>showDayDetail(ds, AR_DAYS[d.getDay()]+' '+d.getDate()+'/'+( d.getMonth()+1));
+    grid.appendChild(el);
+  });
+  TIMES.forEach(t=>{
+    const tc=document.createElement('div');
+    tc.className='cal-time-cell';tc.textContent=t;grid.appendChild(tc);
+    days.forEach(d=>{
+      const ds=d.toISOString().split('T')[0];
+      const bk=bks.find(b=>b.booking_date===ds&&b.booking_time===t);
+      const slot=document.createElement('div');
+      slot.className='cal-slot';
+      if(bk){
+        const ev=document.createElement('div');
+        ev.className='cal-event';
+        ev.textContent=bk.customer_name+' · '+bk.service;
+        slot.appendChild(ev);
+      }
+      grid.appendChild(slot);
+    });
+  });
+}
+
+function showDayDetail(dateStr, label) {
+  const bks=getBookings().filter(b=>b.booking_date===dateStr);
+  const panel=document.getElementById('dayDetailPanel');
+  document.getElementById('dayDetailTitle').textContent='حجوزات '+label;
+  if(!bks.length){
+    document.getElementById('dayDetailContent').innerHTML='<p style="color:var(--text-muted);font-size:0.9rem">لا توجد حجوزات في هذا اليوم</p>';
+  } else {
+    document.getElementById('dayDetailContent').innerHTML=bks.map(b=>`
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:0.8rem;background:var(--bg);border-radius:8px;margin-bottom:0.5rem;border:1px solid rgba(255,255,255,0.06)">
+        <div><strong style="color:var(--white)">${b.customer_name}</strong> <span style="color:var(--text-muted);font-size:0.8rem">· ${b.phone}</span><div style="color:var(--gold);font-size:0.8rem;margin-top:0.2rem">${b.service} · ${b.booking_time}</div></div>
+        <div style="color:var(--gold);font-weight:700">${b.price} ر.س</div>
+      </div>`).join('');
+  }
+  panel.classList.add('show');
+  panel.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+function renderBookings() {
+  const bks=getFilteredBookings().sort((a,b)=>new Date(b.booking_date)-new Date(a.booking_date));
+  const tbody=document.getElementById('bookingsBody');
+  if(!bks.length){
+    tbody.innerHTML=`<tr><td colspan="8"><div class="empty-state"><div class="empty-state-icon">📭</div><div>لا توجد حجوزات</div></div></td></tr>`;
+    return;
+  }
+  tbody.innerHTML=bks.map(b=>`
+    <tr>
+      <td><strong>${b.customer_name}</strong></td>
+      <td style="direction:ltr;text-align:right">${b.phone}</td>
+      <td>${b.service}</td>
+      <td>${b.booking_date}</td>
+      <td>${b.booking_time}</td>
+      <td style="color:var(--gold)">${b.price} ر.س</td>
+      <td><span class="badge badge-confirmed">مؤكد</span></td>
+      <td><button class="delete-btn" onclick="doDelete('${b.id}')">حذف</button></td>
+    </tr>`).join('');
+}
+
+function doDelete(id) {
+  if(!confirm('هل أنت متأكد من حذف هذا الحجز؟')) return;
+  deleteBooking(id);
+  renderStats(); renderCalendar(); renderBookings();
+}
+
+window.addEventListener('hashchange', checkAdminHash);
+window.addEventListener('DOMContentLoaded', ()=>{
+  checkAdminHash();
+  // Navbar scroll effect
+  window.addEventListener('scroll',()=>{
+    document.getElementById('mainNav').style.background = window.scrollY>50 ? 'rgba(8,8,8,0.98)' : 'rgba(8,8,8,0.85)';
+  });
+  // Nav links smooth scroll
+  document.querySelectorAll('.nav-links a').forEach(a=>{
+    a.addEventListener('click',e=>{
+      e.preventDefault();
+      const target=document.querySelector(a.getAttribute('href'));
+      if(target) target.scrollIntoView({behavior:'smooth'});
+    });
+  });
+});
+</script>
+</body>
+</html>
