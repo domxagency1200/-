@@ -1,0 +1,2367 @@
+### هذا هو الملف بعد تعديل كل المطلوب
+
+> انسخ الكود كاملاً إلى ملف `index.html` (أو الملف الحالي) بدل الكود السابق.
+
+```html
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <title>فن الرجل - حلاقة رجالية فاخرة</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- خطوط -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <!-- Supabase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    :root {
+      --bg-main: #080808;
+      --bg-alt: #0f0f0f;
+      --bg-alt-2: #161616;
+      --gold: #C9A84C;
+      --gold-soft: rgba(201, 168, 76, 0.15);
+      --text-main: #f5f5f5;
+      --text-muted: #aaaaaa;
+      --danger: #ff4d4f;
+      --success: #2ecc71;
+      --radius-lg: 18px;
+      --radius-md: 12px;
+      --transition-fast: 0.25s ease;
+      --shadow-soft: 0 18px 45px rgba(0,0,0,0.65);
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      background: radial-gradient(circle at top, #161616 0, #080808 40%, #000 100%);
+      color: var(--text-main);
+      font-family: 'Tajawal', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.7;
+      scroll-behavior: smooth;
+    }
+    img {
+      max-width: 100%;
+      display: block;
+    }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+    button {
+      font-family: inherit;
+    }
+
+    /* توب بار + تيكر */
+    .top-bar {
+      background: linear-gradient(90deg, #0d0d0d, #161616);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      color: var(--gold);
+      font-size: 0.85rem;
+      position: relative;
+      z-index: 30;
+      overflow: hidden;
+    }
+    .top-bar-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 6px 20px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .top-bar-label {
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-size: 0.7rem;
+      color: #f1e8c4;
+      white-space: nowrap;
+    }
+    .ticker-wrapper {
+      position: relative;
+      flex: 1;
+      overflow: hidden;
+    }
+    .ticker-track {
+      display: flex;
+      gap: 40px;
+      white-space: nowrap;
+      animation: tickerMove 26s linear infinite;
+    }
+    .ticker-item {
+      color: var(--text-main);
+      font-size: 0.85rem;
+      opacity: 0.9;
+    }
+    .ticker-dot {
+      color: rgba(201,168,76,0.7);
+      margin: 0 4px;
+    }
+    @keyframes tickerMove {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* نافبار */
+    .navbar {
+      position: fixed;
+      top: 0;
+      inset-inline: 0;
+      z-index: 40;
+      backdrop-filter: blur(18px);
+      background: linear-gradient(to bottom, rgba(8,8,8,0.96), rgba(8,8,8,0.8), transparent);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .navbar-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+    }
+    .brand-mark {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 1px solid rgba(201,168,76,0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      color: var(--gold);
+      background: radial-gradient(circle at top, rgba(201,168,76,0.2), rgba(0,0,0,0.9));
+      box-shadow: 0 0 24px rgba(201,168,76,0.4);
+    }
+    .brand-mark svg {
+      width: 18px;
+      height: 18px;
+      fill: var(--gold);
+    }
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+    }
+    .brand-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .brand-sub {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      font-size: 0.9rem;
+    }
+    .nav-link {
+      position: relative;
+      padding-bottom: 4px;
+      cursor: pointer;
+      color: var(--text-muted);
+      transition: color var(--transition-fast);
+    }
+    .nav-link::after {
+      content: "";
+      position: absolute;
+      inset-inline: 0;
+      bottom: 0;
+      height: 2px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, rgba(201,168,76,0), rgba(201,168,76,0.9), rgba(201,168,76,0));
+      opacity: 0;
+      transform: scaleX(0.5);
+      transition: opacity var(--transition-fast), transform var(--transition-fast);
+    }
+    .nav-link:hover {
+      color: #ffffff;
+    }
+    .nav-link:hover::after {
+      opacity: 1;
+      transform: scaleX(1);
+    }
+    .btn-primary {
+      padding: 8px 20px;
+      border-radius: 999px;
+      border: none;
+      background: linear-gradient(135deg, #C9A84C, #f6e6a8);
+      color: #241e08;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 10px 30px rgba(201,168,76,0.5);
+      transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
+      white-space: nowrap;
+    }
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 16px 40px rgba(201,168,76,0.65);
+      filter: brightness(1.05);
+    }
+    .btn-outline {
+      padding: 8px 18px;
+      border-radius: 999px;
+      border: 1px solid rgba(201,168,76,0.6);
+      background: transparent;
+      color: var(--gold);
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: background var(--transition-fast), color var(--transition-fast), box-shadow var(--transition-fast);
+    }
+    .btn-outline:hover {
+      background: rgba(201,168,76,0.12);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.7);
+    }
+    .nav-toggle {
+      display: none;
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.15);
+      background: rgba(0,0,0,0.3);
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+    .nav-toggle span {
+      display: block;
+      width: 16px;
+      height: 2px;
+      border-radius: 999px;
+      background: #fff;
+      position: relative;
+    }
+    .nav-toggle span::before,
+    .nav-toggle span::after {
+      content: "";
+      position: absolute;
+      inset-inline-start: 0;
+      width: 16px;
+      height: 2px;
+      border-radius: 999px;
+      background: #fff;
+    }
+    .nav-toggle span::before { top: -5px; }
+    .nav-toggle span::after { top: 5px; }
+
+    /* هيرو بخلفية كاملة */
+    .hero {
+      min-height: 100vh;
+      padding-top: 120px;
+      display: flex;
+      align-items: center;
+      position: relative;
+      background-image: url("https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1600&q=80");
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      isolation: isolate;
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top, rgba(0,0,0,0.3), rgba(0,0,0,0.92));
+      z-index: -1;
+    }
+    .hero-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 20px 70px;
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+    .hero-eyebrow {
+      font-size: 0.85rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 14px;
+    }
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.4rem, 4vw, 3.2rem);
+      line-height: 1.1;
+      margin-bottom: 14px;
+    }
+    .hero-title span {
+      color: var(--gold);
+    }
+    .hero-subtitle {
+      font-size: 1rem;
+      color: var(--text-muted);
+      max-width: 480px;
+      margin-bottom: 22px;
+    }
+    .hero-highlights {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 26px;
+    }
+    .chip {
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(0,0,0,0.6);
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      align-items: center;
+    }
+    .hero-note {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+    .hero-note span {
+      color: var(--gold);
+    }
+    .hero-visual {
+      position: relative;
+      height: 380px;
+      border-radius: 30px;
+      overflow: hidden;
+      background: radial-gradient(circle at top, #2b2211, #050505);
+      box-shadow: 0 28px 70px rgba(0,0,0,0.9);
+      isolation: isolate;
+      cursor: pointer;
+    }
+    .hero-visual-img {
+      position: absolute;
+      inset: 0;
+      background-image: url("https://images.unsplash.com/photo-1585747860715-2ba37e788b70?auto=format&fit=crop&w=1200&q=80");
+      background-size: cover;
+      background-position: center;
+      filter: saturate(0.9) contrast(1.05);
+      transform: scale(1.04);
+      transition: transform 0.6s ease, filter 0.6s ease;
+    }
+    .hero-visual-overlay {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top, rgba(0,0,0,0), rgba(0,0,0,0.7));
+      mix-blend-mode: multiply;
+    }
+    .hero-visual:hover .hero-visual-img {
+      transform: scale(1.06);
+      filter: saturate(1.05) contrast(1.1);
+    }
+    .ribbon {
+      position: absolute;
+      inset-inline-start: 20px;
+      top: 18px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: rgba(0,0,0,0.7);
+      border: 1px solid rgba(201,168,76,0.7);
+      font-size: 0.8rem;
+      color: var(--gold);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      backdrop-filter: blur(16px);
+    }
+    .ribbon-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--success);
+      box-shadow: 0 0 10px var(--success);
+    }
+    .hero-stats {
+      position: absolute;
+      inset-inline-end: 20px;
+      bottom: 18px;
+      padding: 12px 14px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, rgba(0,0,0,0.95), rgba(16,16,16,0.95));
+      border: 1px solid rgba(255,255,255,0.08);
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      backdrop-filter: blur(16px);
+    }
+    .hero-stat {
+      font-size: 0.8rem;
+    }
+    .hero-stat-label {
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+    .hero-stat-value {
+      font-weight: 600;
+      color: #ffffff;
+    }
+
+    /* أقسام عامة */
+    section {
+      scroll-margin-top: 80px;
+    }
+    .section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 20px 10px;
+    }
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+    }
+    .section-kicker {
+      font-size: 0.85rem;
+      color: var(--gold);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .section-sub {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    /* الخدمات */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 20px;
+    }
+    .card {
+      position: relative;
+      padding: 18px 18px 16px;
+      border-radius: var(--radius-lg);
+      background: radial-gradient(circle at top, rgba(255,255,255,0.02), rgba(0,0,0,0.85));
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: var(--shadow-soft);
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(201,168,76,0.7);
+      box-shadow: 0 22px 55px rgba(0,0,0,0.85);
+      background: radial-gradient(circle at top, rgba(201,168,76,0.06), rgba(0,0,0,0.9));
+    }
+    .card-highlight {
+      position: absolute;
+      inset-inline-start: 0;
+      inset-block-start: 0;
+      width: 60%;
+      height: 60%;
+      background: radial-gradient(circle at top, rgba(201,168,76,0.12), transparent 60%);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.18s ease;
+    }
+    .card:hover .card-highlight {
+      opacity: 1;
+    }
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+    .card-title {
+      font-weight: 600;
+      font-size: 1.05rem;
+    }
+    .card-pill {
+      font-size: 0.8rem;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(201,168,76,0.6);
+      background: rgba(0,0,0,0.6);
+      color: var(--gold);
+    }
+    .card-body {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+    .card-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+    .price {
+      color: var(--gold);
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    /* الباقات */
+    .plan-card {
+      padding-top: 26px;
+      padding-bottom: 18px;
+    }
+    .badge-popular {
+      position: absolute;
+      top: 12px;
+      inset-inline-end: 18px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      background: linear-gradient(135deg, #C9A84C, #f5ebc4);
+      color: #1b1707;
+      font-weight: 600;
+      box-shadow: 0 12px 30px rgba(201,168,76,0.6);
+    }
+    .plan-price {
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+    .plan-price span {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      font-weight: 400;
+    }
+    .plan-features {
+      margin: 10px 0 6px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    /* عن الحلاق + خريطة */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1.3fr 1fr;
+      gap: 30px;
+      align-items: center;
+    }
+    .about-card {
+      padding: 22px 20px 18px;
+      border-radius: var(--radius-lg);
+      background: radial-gradient(circle at top, rgba(255,255,255,0.02), rgba(0,0,0,0.9));
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: var(--shadow-soft);
+    }
+    .about-name {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    .about-role {
+      font-size: 0.9rem;
+      color: var(--gold);
+      margin-bottom: 10px;
+    }
+    .about-text {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+    .stats-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+    .stat-card {
+      flex: 1;
+      min-width: 120px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      background: rgba(0,0,0,0.7);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .stat-label {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+    .stat-value {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #fff;
+    }
+    .about-map {
+      border-radius: 26px;
+      overflow: hidden;
+      box-shadow: 0 22px 60px rgba(0,0,0,0.9);
+      border: 1px solid rgba(255,255,255,0.08);
+      min-height: 260px;
+    }
+    .about-map iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    /* التقييمات */
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap: 20px;
+    }
+    .rating-stars {
+      color: #f2da7b;
+      font-size: 0.9rem;
+      margin-bottom: 6px;
+    }
+    .testimonial-name {
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+    .testimonial-meta {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+    }
+
+    /* فوتر */
+    .footer {
+      margin-top: 40px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding: 20px;
+      background: linear-gradient(to top, #050505, transparent);
+    }
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+    .footer-link {
+      color: var(--gold);
+      cursor: pointer;
+      border-bottom: 1px dotted rgba(201,168,76,0.5);
+    }
+
+    /* مودال الحجز (كل شيء في شاشة واحدة) */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.7);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      backdrop-filter: blur(8px);
+    }
+    .modal {
+      width: min(760px, 100% - 24px);
+      max-height: calc(100vh - 40px);
+      background: radial-gradient(circle at top, #161616, #050505);
+      border-radius: 22px;
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: 0 24px 70px rgba(0,0,0,0.85);
+      padding: 18px 18px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      padding-bottom: 8px;
+    }
+    .modal-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+    }
+    .modal-subtitle {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+    .modal-close {
+      border-radius: 999px;
+      width: 30px;
+      height: 30px;
+      border: 1px solid rgba(255,255,255,0.15);
+      background: rgba(0,0,0,0.5);
+      cursor: pointer;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-body {
+      overflow-y: auto;
+      padding: 4px 2px 4px;
+      flex: 1;
+    }
+    .form-row-two {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      font-size: 0.8rem;
+    }
+    .field label {
+      color: var(--text-muted);
+    }
+    .field input {
+      padding: 8px 10px;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(0,0,0,0.7);
+      color: #fff;
+      font-family: inherit;
+      font-size: 0.85rem;
+      outline: none;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    }
+    .field input:focus {
+      border-color: rgba(201,168,76,0.9);
+      box-shadow: 0 0 0 1px rgba(201,168,76,0.3);
+    }
+    .section-block-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin: 8px 0 4px;
+    }
+    .section-block-sub {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+    .services-select-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+    .service-option {
+      position: relative;
+      padding: 10px 10px 8px;
+      border-radius: 14px;
+      background: rgba(0,0,0,0.75);
+      border: 1px solid rgba(255,255,255,0.12);
+      cursor: pointer;
+      font-size: 0.85rem;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      transition: border-color var(--transition-fast), background var(--transition-fast), box-shadow var(--transition-fast), transform 0.15s ease;
+    }
+    .service-option:hover {
+      border-color: rgba(201,168,76,0.8);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.8);
+      transform: translateY(-2px);
+    }
+    .service-option.selected {
+      border-color: rgba(201,168,76,1);
+      background: radial-gradient(circle at top, rgba(201,168,76,0.16), rgba(0,0,0,0.9));
+      box-shadow: 0 14px 34px rgba(0,0,0,0.9);
+    }
+    .service-checkbox {
+      position: absolute;
+      inset-inline-start: 10px;
+      top: 10px;
+      width: 16px;
+      height: 16px;
+      border-radius: 4px;
+      border: 1px solid rgba(255,255,255,0.3);
+      background: rgba(0,0,0,0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      color: var(--gold);
+      pointer-events: none;
+    }
+    .service-option.selected .service-checkbox {
+      border-color: var(--gold);
+      background: var(--gold);
+      color: #201a07;
+    }
+    .service-title {
+      padding-inline-start: 24px;
+      font-weight: 500;
+    }
+    .service-meta {
+      padding-inline-start: 24px;
+      color: var(--text-muted);
+      font-size: 0.78rem;
+      display: flex;
+      justify-content: space-between;
+    }
+    .barbers-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 6px;
+    }
+    .barber-chip {
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.16);
+      background: rgba(0,0,0,0.7);
+      font-size: 0.85rem;
+      cursor: pointer;
+      color: var(--text-muted);
+      transition: background var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast), transform 0.15s ease;
+    }
+    .barber-chip.selected {
+      background: radial-gradient(circle at top, rgba(201,168,76,0.18), rgba(0,0,0,0.9));
+      border-color: rgba(201,168,76,1);
+      color: #fff;
+      box-shadow: 0 10px 26px rgba(0,0,0,0.9);
+    }
+    .barber-chip:hover {
+      border-color: rgba(201,168,76,0.7);
+      color: #fff;
+      transform: translateY(-1px);
+    }
+    .booking-summary {
+      padding: 10px 12px;
+      border-radius: 14px;
+      border: 1px dashed rgba(255,255,255,0.18);
+      background: rgba(0,0,0,0.6);
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 4px;
+    }
+    .booking-summary strong {
+      color: #fff;
+    }
+    .time-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .time-chip {
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.16);
+      background: rgba(0,0,0,0.7);
+      font-size: 0.8rem;
+      cursor: pointer;
+      color: var(--text-muted);
+      transition: background var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast), transform 0.15s ease;
+    }
+    .time-chip:hover {
+      border-color: rgba(201,168,76,0.8);
+      color: #fff;
+      transform: translateY(-1px);
+    }
+    .time-chip.selected {
+      background: radial-gradient(circle at top, rgba(201,168,76,0.2), rgba(0,0,0,0.9));
+      border-color: rgba(201,168,76,1);
+      color: #fff;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.9);
+    }
+    .time-chip.disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+      border-style: dashed;
+      transform: none;
+    }
+    .modal-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      padding-top: 8px;
+      margin-top: 4px;
+    }
+    .modal-error {
+      font-size: 0.8rem;
+      color: var(--danger);
+      min-height: 1em;
+    }
+    .modal-success {
+      font-size: 0.85rem;
+      color: var(--success);
+      text-align: center;
+      margin-top: 6px;
+    }
+
+    /* لوحة الإدارة (صفحة منفصلة عبر #admin فقط) */
+    #adminPage {
+      display: none;
+      padding-top: 80px;
+      padding-bottom: 40px;
+    }
+    .admin-wrapper {
+      max-width: 1100px;
+      margin: 0 auto 20px;
+      padding: 20px;
+      border-radius: 24px;
+      background: radial-gradient(circle at top, #161616, #050505);
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: var(--shadow-soft);
+    }
+    .admin-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+    .admin-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+    }
+    .admin-sub {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+    .admin-login {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      margin-top: 10px;
+    }
+    .admin-login input {
+      padding: 8px 10px;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.18);
+      background: rgba(0,0,0,0.7);
+      color: #fff;
+      font-size: 0.85rem;
+      min-width: 180px;
+    }
+    .admin-error {
+      font-size: 0.8rem;
+      color: var(--danger);
+      margin-top: 4px;
+    }
+    .admin-main {
+      margin-top: 12px;
+      display: none;
+    }
+    .admin-stats {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0,1fr));
+      gap: 14px;
+      margin-bottom: 16px;
+    }
+    .admin-stat-card {
+      padding: 10px 12px;
+      border-radius: 16px;
+      background: rgba(0,0,0,0.8);
+      border: 1px solid rgba(255,255,255,0.08);
+      font-size: 0.85rem;
+    }
+    .admin-stat-label {
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+    .admin-stat-value {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #fff;
+    }
+    .admin-filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 14px;
+      font-size: 0.85rem;
+    }
+    .filter-chip {
+      padding: 5px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.16);
+      background: rgba(0,0,0,0.7);
+      cursor: pointer;
+      color: var(--text-muted);
+      transition: background var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast), transform 0.15s ease;
+    }
+    .filter-chip.active {
+      background: radial-gradient(circle at top, rgba(201,168,76,0.18), rgba(0,0,0,0.9));
+      border-color: rgba(201,168,76,1);
+      color: #fff;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.9);
+    }
+    .filter-chip:hover {
+      border-color: rgba(201,168,76,0.7);
+      color: #fff;
+      transform: translateY(-1px);
+    }
+    .admin-layout {
+      display: grid;
+      grid-template-columns: 0.9fr 1.6fr;
+      gap: 16px;
+      align-items: flex-start;
+    }
+    .admin-calendar {
+      padding: 12px 10px;
+      border-radius: 16px;
+      background: rgba(0,0,0,0.7);
+      border: 1px solid rgba(255,255,255,0.08);
+      font-size: 0.8rem;
+    }
+    .calendar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+    .calendar-week {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0,1fr));
+      gap: 6px;
+    }
+    .calendar-day {
+      padding: 6px 4px;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(0,0,0,0.7);
+      cursor: pointer;
+      text-align: center;
+      line-height: 1.4;
+      transition: background var(--transition-fast), border-color var(--transition-fast), transform 0.15s ease;
+    }
+    .calendar-day:hover {
+      border-color: rgba(201,168,76,0.8);
+      transform: translateY(-1px);
+    }
+    .calendar-day.active {
+      background: radial-gradient(circle at top, rgba(201,168,76,0.2), rgba(0,0,0,0.95));
+      border-color: rgba(201,168,76,1);
+      color: #fff;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.9);
+    }
+    .calendar-day-name {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+    }
+    .calendar-day-date {
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+    .calendar-day-count {
+      font-size: 0.7rem;
+      color: var(--gold);
+    }
+    .calendar-detail {
+      margin-top: 8px;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      max-height: 130px;
+      overflow-y: auto;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding-top: 6px;
+    }
+    .calendar-detail-item {
+      padding: 3px 0;
+      border-bottom: 1px dashed rgba(255,255,255,0.06);
+    }
+    .admin-table {
+      padding: 10px;
+      border-radius: 16px;
+      background: rgba(0,0,0,0.7);
+      border: 1px solid rgba(255,255,255,0.08);
+      font-size: 0.8rem;
+      max-height: 260px;
+      overflow: auto;
+    }
+    .admin-table table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .admin-table th,
+    .admin-table td {
+      padding: 6px 4px;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      text-align: center;
+    }
+    .admin-table th {
+      color: var(--text-muted);
+      font-weight: 500;
+      position: sticky;
+      top: 0;
+      background: rgba(0,0,0,0.9);
+      z-index: 1;
+    }
+    .btn-delete {
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,77,79,0.7);
+      background: rgba(255,77,79,0.1);
+      color: #ffb3b5;
+      cursor: pointer;
+      font-size: 0.75rem;
+      transition: background 0.15s ease, transform 0.15s ease;
+    }
+    .btn-delete:hover {
+      background: rgba(255,77,79,0.2);
+      transform: translateY(-1px);
+    }
+
+    /* ريسبونسيف */
+    @media (max-width: 992px) {
+      .hero-inner {
+        grid-template-columns: 1fr;
+      }
+      .hero-visual {
+        height: 320px;
+      }
+      .cards-grid {
+        grid-template-columns: repeat(2, minmax(0,1fr));
+      }
+      .about-grid {
+        grid-template-columns: 1fr;
+      }
+      .testimonials-grid {
+        grid-template-columns: repeat(2, minmax(0,1fr));
+      }
+      .admin-stats {
+        grid-template-columns: repeat(2, minmax(0,1fr));
+      }
+      .admin-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+    @media (max-width: 768px) {
+      .top-bar-inner {
+        padding-inline: 12px;
+      }
+      .navbar-inner {
+        padding-inline: 12px;
+      }
+      .nav-links {
+        position: fixed;
+        inset-inline: 14px;
+        top: 70px;
+        padding: 12px;
+        border-radius: 18px;
+        background: rgba(0,0,0,0.95);
+        border: 1px solid rgba(255,255,255,0.09);
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        font-size: 0.9rem;
+        transform: translateY(-20px);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.18s ease, transform 0.18s ease;
+      }
+      .nav-links.open {
+        transform: translateY(0);
+        opacity: 1;
+        pointer-events: auto;
+      }
+      .nav-toggle {
+        display: inline-flex;
+      }
+      .hero {
+        padding-top: 110px;
+      }
+      .hero-inner {
+        padding-inline: 16px;
+      }
+      .cards-grid {
+        grid-template-columns: 1fr;
+      }
+      .testimonials-grid {
+        grid-template-columns: 1fr;
+      }
+      .services-select-grid {
+        grid-template-columns: 1fr;
+      }
+      .admin-stats {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    @media (max-width: 520px) {
+      .hero-actions {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .hero-note {
+        text-align: center;
+      }
+      .form-row-two {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- توب بار -->
+  <div class="top-bar">
+    <div class="top-bar-inner">
+      <div class="top-bar-label">F A N &nbsp; A L R A J U L</div>
+      <div class="ticker-wrapper">
+        <div class="ticker-track">
+          <div class="ticker-item">حجزك مؤكد بدون دفعة مقدمة<span class="ticker-dot">•</span>خدمة القهوة المختصة قبل الحلاقة</div>
+          <div class="ticker-item">الباقة الكاملة بـ <strong>150 ريال</strong> فقط<span class="ticker-dot">•</span>مدة الحجز من 30 إلى 60 دقيقة</div>
+          <div class="ticker-item">نرحب بك في فن الرجل - تجربة حلاقة فاخرة بمعايير فندقية</div>
+          <div class="ticker-item">حجزك مؤكد بدون دفعة مقدمة<span class="ticker-dot">•</span>خدمة القهوة المختصة قبل الحلاقة</div>
+          <div class="ticker-item">الباقة الكاملة بـ <strong>150 ريال</strong> فقط<span class="ticker-dot">•</span>مدة الحجز من 30 إلى 60 دقيقة</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- نافبار -->
+  <nav class="navbar">
+    <div class="navbar-inner">
+      <div class="brand" onclick="scrollToSection('top')">
+        <div class="brand-mark" aria-label="شعار مقص الحلاقة">
+          <!-- أيقونة مقص بسيطة -->
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M3.5 5a2.5 2.5 0 115 0 2.5 2.5 0 01-5 0zm0 14a2.5 2.5 0 115 0 2.5 2.5 0 01-5 0zm7.39-6.44L20.5 5.5a1 1 0 10-1.41-1.41L9.5 13.68l1.39 1.39zM21 18.5L13.5 11l-1.41 1.41L18.5 19.5a1 1 0 101.41-1z"/>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <div class="brand-title">فن الرجل</div>
+          <div class="brand-sub">حلاقة رجالية فاخرة</div>
+        </div>
+      </div>
+      <div class="nav-links" id="navLinks">
+        <div class="nav-link" onclick="scrollToSection('services')">الخدمات</div>
+        <div class="nav-link" onclick="scrollToSection('plans')">الباقات</div>
+        <div class="nav-link" onclick="scrollToSection('about')">عن الحلاق</div>
+        <div class="nav-link" onclick="scrollToSection('reviews')">آراء العملاء</div>
+      </div>
+      <button class="btn-primary" onclick="openBooking()">احجز موعدك الآن</button>
+      <button class="nav-toggle" onclick="toggleNav()">
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <main id="top">
+    <!-- هيرو -->
+    <section class="hero" id="hero">
+      <div class="hero-inner">
+        <div>
+          <div class="hero-eyebrow">حلاقة رجالية • تجربة فندقية</div>
+          <h1 class="hero-title">
+            ارفع معايير <span>إطلالتك</span><br>في صالون فن الرجل.
+          </h1>
+          <p class="hero-subtitle">
+            حلاقة دقيقة، تفاصيل ذهبية، وأجواء فاخرة في قلب المدينة. نعمل بالحجز المسبق فقط لضمان تجربة هادئة ومخصصة لكل رجل.
+          </p>
+          <div class="hero-highlights">
+            <div class="chip">حجز مؤكد خلال ثوانٍ</div>
+            <div class="chip">جلسات من 30 - 60 دقيقة</div>
+            <div class="chip">قصة شعر، فيد، لحية، باقات كاملة</div>
+          </div>
+          <div class="hero-actions">
+            <button class="btn-primary" onclick="openBooking()">احجز الآن</button>
+            <button class="btn-outline" onclick="scrollToSection('services')">تصفح الخدمات</button>
+            <div class="hero-note">
+              ساعات العمل <span>09:00 - 17:30</span> • جميع الأيام
+            </div>
+          </div>
+        </div>
+        <div class="hero-visual" onclick="openBooking()">
+          <div class="hero-visual-img"></div>
+          <div class="hero-visual-overlay"></div>
+          <div class="ribbon">
+            <span class="ribbon-dot"></span>
+            حجوزات اليوم تتوفر الآن
+          </div>
+          <div class="hero-stats">
+            <div class="hero-stat">
+              <div class="hero-stat-label">حجوزات هذا الأسبوع</div>
+              <div class="hero-stat-value" id="heroWeekBookings">0</div>
+            </div>
+            <div class="hero-stat">
+              <div class="hero-stat-label">متوسط الفاتورة</div>
+              <div class="hero-stat-value"><span id="heroAvgRevenue">0</span> ر.س</div>
+            </div>
+            <div class="hero-stat">
+              <div class="hero-stat-label">أقرب موعد متاح</div>
+              <div class="hero-stat-value" id="heroNextSlot">اليوم 09:00</div>
+            </div>
+            <div class="hero-stat">
+              <div class="hero-stat-label">خدماتنا الأساسية</div>
+              <div class="hero-stat-value">3 خدمات</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- الخدمات -->
+    <section id="services">
+      <div class="section">
+        <div class="section-header">
+          <div>
+            <div class="section-kicker">الخدمات</div>
+            <h2 class="section-title">خدمات حلاقة دقيقة بتفاصيل ذهبية</h2>
+          </div>
+          <div class="section-sub">
+            جميع الخدمات متاحة للحجز الفوري من خلال نظام الحجز الخاص بنا.
+          </div>
+        </div>
+        <div class="cards-grid">
+          <article class="card" onclick="openBookingWithService('haircut')" aria-label="قصة شعر">
+            <div class="card-highlight"></div>
+            <div class="card-header">
+              <div>
+                <div class="card-title">قصة شعر كلاسيكية أو عصرية</div>
+                <div class="card-body">
+                  استشارة سريعة، تحديد الشكل المناسب لوجهك، وتنفيذ دقيق بأدوات معقمة.
+                </div>
+              </div>
+              <div class="card-pill">مدة 30 دقيقة</div>
+            </div>
+            <div class="card-meta">
+              <div class="price">60 ر.س</div>
+              <div>قص وتشذيب خفيف</div>
+            </div>
+          </article>
+
+          <article class="card" onclick="openBookingWithService('fade')" aria-label="فيد + لحية">
+            <div class="card-highlight"></div>
+            <div class="card-header">
+              <div>
+                <div class="card-title">فيد تدريجي + تشكيل لحية</div>
+                <div class="card-body">
+                  تدرج نظيف، خطوط حادة، وتشذيب لحية باحترافية مع عناية بالبشرة.
+                </div>
+              </div>
+              <div class="card-pill">مدة 45 دقيقة</div>
+            </div>
+            <div class="card-meta">
+              <div class="price">90 ر.س</div>
+              <div>تحديد + عناية</div>
+            </div>
+          </article>
+
+          <article class="card" onclick="openBookingWithService('full')" aria-label="الباقة الكاملة">
+            <div class="card-highlight"></div>
+            <div class="card-header">
+              <div>
+                <div class="card-title">الباقة الكاملة - إطلالة جديدة</div>
+                <div class="card-body">
+                  قصة شعر، فيد، لحية، وعناية نهائية بالتفاصيل. التجربة المثالية قبل مناسبة أو تصوير.
+                </div>
+              </div>
+              <div class="card-pill">مدة 60 دقيقة</div>
+            </div>
+            <div class="card-meta">
+              <div class="price">150 ر.س</div>
+              <div>الأكثر طلباً</div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- الباقات -->
+    <section id="plans">
+      <div class="section">
+        <div class="section-header">
+          <div>
+            <div class="section-kicker">الباقات</div>
+            <h2 class="section-title">اختر الباقة التي تناسب روتينك</h2>
+          </div>
+          <div class="section-sub">
+            يمكن حجز أي باقة بمرونة، مع إمكانية دمج خدمات إضافية عند الحضور.
+          </div>
+        </div>
+        <div class="cards-grid">
+          <article class="card plan-card" onclick="openBookingWithService('haircut')">
+            <div class="card-highlight"></div>
+            <div class="card-header">
+              <div class="card-title">باقة العناية السريعة</div>
+            </div>
+            <div class="plan-price">60 ر.س <span>/ زيارة</span></div>
+            <div class="plan-features">
+              - قصة شعر احترافية<br>
+              - تشذيب خفيف للحية عند الطلب<br>
+              - مصفف شعر مخصص لك
+            </div>
+            <div class="card-meta">
+              <span>30 دقيقة</span>
+              <span>مثالية لروتين أسبوعي</span>
+            </div>
+          </article>
+
+          <article class="card plan-card" onclick="openBookingWithService('full')">
+            <div class="card-highlight"></div>
+            <div class="badge-popular">الأكثر طلباً</div>
+            <div class="card-header">
+              <div class="card-title">باقة الإطلالة الكاملة</div>
+            </div>
+            <div class="plan-price">150 ر.س <span>/ زيارة</span></div>
+            <div class="plan-features">
+              - قصة شعر + فيد + لحية<br>
+              - ستايلينغ نهائي وتصوير بسيط<br>
+              - أفضل خيار قبل المناسبات
+            </div>
+            <div class="card-meta">
+              <span>60 دقيقة</span>
+              <span>تجربة فندقية كاملة</span>
+            </div>
+          </article>
+
+          <article class="card plan-card" onclick="openBookingWithService('fade')">
+            <div class="card-highlight"></div>
+            <div class="card-header">
+              <div class="card-title">باقة الفيد واللحية</div>
+            </div>
+            <div class="plan-price">90 ر.س <span>/ زيارة</span></div>
+            <div class="plan-features">
+              - فيد تدريجي نظيف<br>
+              - تشكيل لحية بخطوط حادة<br>
+              - عناية بالبشرة بعد الحلاقة
+            </div>
+            <div class="card-meta">
+              <span>45 دقيقة</span>
+              <span>ثبات وأناقة يومية</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- عن الحلاق + خريطة -->
+    <section id="about">
+      <div class="section">
+        <div class="section-header">
+          <div>
+            <div class="section-kicker">عن فن الرجل</div>
+            <h2 class="section-title">خبرة تتجاوز المقص والماكينة</h2>
+          </div>
+          <div class="section-sub">
+            نؤمن أن كل حلاقة هي لقاء بين أسلوبك الشخصي وخبرة الحلاق.
+          </div>
+        </div>
+        <div class="about-grid">
+          <div class="about-card">
+            <div class="about-name">أحمد العتيبي</div>
+            <div class="about-role">الحلاق الرئيسي ومؤسس فن الرجل</div>
+            <p class="about-text">
+              أكثر من ١٠ سنوات خبرة في الحلاقة الرجالية الفاخرة بين الرياض ودبي، مع تركيز على التفاصيل الدقيقة
+              التي تصنع الفرق في إطلالتك اليومية. يحرص أحمد على أن تكون كل زيارة تجربة كاملة من لحظة الدخول حتى آخر رشة عطر.
+            </p>
+            <div class="stats-row">
+              <div class="stat-card">
+                <div class="stat-label">سنوات الخبرة</div>
+                <div class="stat-value">10+</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-label">عملاء دائمون</div>
+                <div class="stat-value" id="aboutLoyalClients">0</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-label">تقييم عام</div>
+                <div class="stat-value">4.9/5</div>
+              </div>
+            </div>
+          </div>
+          <div class="about-map" aria-label="موقع صالون فن الرجل على خرائط قوقل">
+            <iframe
+              src="https://www.google.com/maps?q=%D9%81%D9%86+%D8%A7%D9%84%D8%B1%D8%AC%D9%84+%D9%84%D9%84%D8%AD%D9%84%D8%A7%D9%82%D8%A9&output=embed"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- تقييمات العملاء -->
+    <section id="reviews">
+      <div class="section">
+        <div class="section-header">
+          <div>
+            <div class="section-kicker">آراء العملاء</div>
+            <h2 class="section-title">ماذا يقول الرجال عن فن الرجل؟</h2>
+          </div>
+          <div class="section-sub">
+            جميع الحجزات تتم عبر النظام الرقمي، لكن التجربة تبقى شخصية جداً.
+          </div>
+        </div>
+        <div class="testimonials-grid">
+          <article class="card" onclick="openBooking()">
+            <div class="card-highlight"></div>
+            <div class="rating-stars">★★★★★</div>
+            <div class="testimonial-name">سعود الشمري</div>
+            <div class="testimonial-meta">عميل دائم • باقة الإطلالة الكاملة</div>
+            <p class="card-body">
+              أفضل صالون زرته من ناحية الهدوء والترتيب. ما تحس أنك مستعجل أبداً، ولا في انتظار طويل. كل شيء محسوب بالوقت، وهذا أكثر شيء أعجبني.
+            </p>
+          </article>
+          <article class="card" onclick="openBooking()">
+            <div class="card-highlight"></div>
+            <div class="rating-stars">★★★★★</div>
+            <div class="testimonial-name">عبدالله القحطاني</div>
+            <div class="testimonial-meta">قصة شعر + فيد</div>
+            <p class="card-body">
+              الفيد نظيف وخطوط اللحية مرتبة جداً. الحلاق يسمع بالضبط إيش تبي، ويعطيك اقتراحات تناسب شكل وجهك.
+            </p>
+          </article>
+          <article class="card" onclick="openBooking()">
+            <div class="card-highlight"></div>
+            <div class="rating-stars">★★★★★</div>
+            <div class="testimonial-name">تركي الحربي</div>
+            <div class="testimonial-meta">قصة شعر أسبوعية</div>
+            <p class="card-body">
+              أحب فكرة الحجز المسبق، أدخل على الوقت وأطلع على الوقت. القهوة قبل الحلاقة حركة رايقة بعد يوم عمل طويل.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- صفحة لوحة الإدارة (تظهر فقط مع #admin) -->
+  <section id="adminPage">
+    <div class="admin-wrapper">
+      <div class="admin-header">
+        <div>
+          <div class="section-kicker">لوحة الإدارة</div>
+          <h2 class="admin-title">إدارة حجوزات فن الرجل</h2>
+          <div class="admin-sub">هذه المنطقة خاصة بالموظفين فقط. الرجاء عدم مشاركتها مع العملاء.</div>
+        </div>
+      </div>
+      <div id="adminLoginArea">
+        <div class="admin-login">
+          <input type="password" id="adminPassword" placeholder="أدخل رمز المرور للموظفين" autocomplete="off" />
+          <button class="btn-primary" onclick="handleAdminLogin()">دخول</button>
+        </div>
+        <div class="admin-error" id="adminError"></div>
+      </div>
+      <div class="admin-main" id="adminMain">
+        <div class="admin-stats">
+          <div class="admin-stat-card">
+            <div class="admin-stat-label">إجمالي الحجوزات</div>
+            <div class="admin-stat-value" id="statTotal">0</div>
+          </div>
+          <div class="admin-stat-card">
+            <div class="admin-stat-label">إيرادات تقريبية</div>
+            <div class="admin-stat-value"><span id="statRevenue">0</span> ر.س</div>
+          </div>
+          <div class="admin-stat-card">
+            <div class="admin-stat-label">متوسط الحجز</div>
+            <div class="admin-stat-value"><span id="statAverage">0</span> ر.س</div>
+          </div>
+          <div class="admin-stat-card">
+            <div class="admin-stat-label">حجوزات اليوم</div>
+            <div class="admin-stat-value" id="statToday">0</div>
+          </div>
+        </div>
+        <div class="admin-filters">
+          <div class="filter-chip active" data-filter="all" onclick="setAdminFilter('all')">الكل</div>
+          <div class="filter-chip" data-filter="today" onclick="setAdminFilter('today')">اليوم</div>
+          <div class="filter-chip" data-filter="week" onclick="setAdminFilter('week')">هذا الأسبوع</div>
+          <div class="filter-chip" data-filter="month" onclick="setAdminFilter('month')">هذا الشهر</div>
+        </div>
+        <div class="admin-layout">
+          <div class="admin-calendar">
+            <div class="calendar-header">
+              <span>التقويم الأسبوعي</span>
+              <span id="calendarWeekLabel"></span>
+            </div>
+            <div class="calendar-week" id="calendarWeek"></div>
+            <div class="calendar-detail" id="calendarDetail"></div>
+          </div>
+          <div class="admin-table">
+            <table>
+              <thead>
+                <tr>
+                  <th>الاسم</th>
+                  <th>الخدمة</th>
+                  <th>اليوم</th>
+                  <th>الوقت</th>
+                  <th>السعر</th>
+                  <th>إجراء</th>
+                </tr>
+              </thead>
+              <tbody id="adminTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- فوتر -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div>© <span id="footerYear"></span> فن الرجل. جميع الحقوق محفوظة.</div>
+      <div>
+        <span class="footer-link" onclick="location.hash='#admin'">بوابة الموظفين</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- مودال الحجز الجديد (كل الحقول في صفحة واحدة) -->
+  <div class="modal-backdrop" id="bookingModal">
+    <div class="modal">
+      <div class="modal-header">
+        <div>
+          <div class="modal-title">حجز موعد جديد</div>
+          <div class="modal-subtitle">يرجى تعبئة البيانات واختيار الخدمات والحلاق والوقت المناسب.</div>
+        </div>
+        <button class="modal-close" onclick="closeBooking()" aria-label="إغلاق">✕</button>
+      </div>
+      <div class="modal-body">
+        <form id="bookingForm" onsubmit="submitBk(event)">
+          <div class="form-row-two">
+            <div class="field">
+              <label for="customerName">الاسم الكامل</label>
+              <input id="customerName" type="text" placeholder="مثال: محمد بن خالد" required />
+            </div>
+            <div class="field">
+              <label for="phone">رقم الجوال (يبدأ بـ 05)</label>
+              <input id="phone" type="tel" placeholder="05XXXXXXXX" required maxlength="10" />
+            </div>
+          </div>
+
+          <div class="section-block-title">الخدمات المطلوبة</div>
+          <div class="section-block-sub">يمكنك اختيار خدمة أو أكثر، وسيتم جمع السعر والمدة تلقائياً.</div>
+          <div class="services-select-grid">
+            <div class="service-option" data-service-id="haircut" onclick="toggleService('haircut')">
+              <div class="service-checkbox">✓</div>
+              <div class="service-title">قصة شعر</div>
+              <div class="service-meta">
+                <span>60 ر.س</span>
+                <span>30 دقيقة</span>
+              </div>
+            </div>
+            <div class="service-option" data-service-id="fade" onclick="toggleService('fade')">
+              <div class="service-checkbox">✓</div>
+              <div class="service-title">فيد + لحية</div>
+              <div class="service-meta">
+                <span>90 ر.س</span>
+                <span>45 دقيقة</span>
+              </div>
+            </div>
+            <div class="service-option" data-service-id="full" onclick="toggleService('full')">
+              <div class="service-checkbox">✓</div>
+              <div class="service-title">الباقة الكاملة</div>
+              <div class="service-meta">
+                <span>150 ر.س</span>
+                <span>60 دقيقة</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="section-block-title">اختر الحلاق</div>
+          <div class="section-block-sub">يمكنك اختيار الحلاق الأنسب لك.</div>
+          <div class="barbers-row">
+            <button type="button" class="barber-chip" data-barber="محمد" onclick="selectBarber('محمد')">محمد</button>
+            <button type="button" class="barber-chip" data-barber="صالح" onclick="selectBarber('صالح')">صالح</button>
+            <button type="button" class="barber-chip" data-barber="خالد" onclick="selectBarber('خالد')">خالد</button>
+          </div>
+
+          <div class="section-block-title">تاريخ ووقت الحجز</div>
+          <div class="section-block-sub">
+            اختر اليوم المناسب، ثم سيتم عرض الأوقات المتاحة من 09:00 حتى 17:30 كل 30 دقيقة.
+          </div>
+          <div class="form-row-two">
+            <div class="field">
+              <label for="bookingDate">تاريخ الحجز</label>
+              <input id="bookingDate" type="date" onchange="handleDateChange(this.value)" required />
+            </div>
+            <div class="field">
+              <label>الأوقات المتاحة</label>
+              <div class="time-row" id="timesGrid"></div>
+            </div>
+          </div>
+
+          <div class="booking-summary" id="finalSummary">
+            سيتم عرض ملخص الحجز هنا بعد اختيار الخدمات والتاريخ والوقت.
+          </div>
+
+          <div class="modal-footer">
+            <div class="modal-error" id="modalError"></div>
+            <button type="submit" class="btn-primary">
+              تأكيد وحجز الموعد
+            </button>
+          </div>
+          <div class="modal-success" id="modalSuccess"></div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    var SB_URL = 'https://snocaqqtzprjmdwmqrof.supabase.co';
+    var SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNub2NhcXF0enByam1kd21xcm9mIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMxNjEyMDYsImV4cCI6MjA4ODczNzIwNn0._URyK0E59xbuxa5U-gFPE3hp8ytnzp2F6dNuXbmQ1lw';
+    var supabaseClient = window.supabase.createClient(SB_URL, SB_KEY);
+
+    var STORAGE_KEY = 'fan_alrajul_bookings';
+    var bookings = [];
+    var currentFilter = 'all';
+    var selectedServices = [];
+    var selectedBarber = null;
+    var selectedDateIso = null;
+    var selectedDateLabel = null;
+    var selectedTime = null;
+
+    var SERVICES = {
+      haircut: { id: 'haircut', name: 'قصة شعر', price: 60, duration: 30 },
+      fade: { id: 'fade', name: 'فيد + لحية', price: 90, duration: 45 },
+      full: { id: 'full', name: 'الباقة الكاملة', price: 150, duration: 60 }
+    };
+
+    var WEEKDAYS_AR = ['الأحد','الاثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'];
+
+    function toggleNav() {
+      var nav = document.getElementById('navLinks');
+      nav.classList.toggle('open');
+    }
+
+    function scrollToSection(id) {
+      var target;
+      if (id === 'top') {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        return;
+      }
+      if (id === 'services') target = document.getElementById('services');
+      if (id === 'plans') target = document.getElementById('plans');
+      if (id === 'about') target = document.getElementById('about');
+      if (id === 'reviews') target = document.getElementById('reviews');
+      if (target) target.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function openBooking() {
+      resetBookingState();
+      document.getElementById('bookingModal').style.display = 'flex';
+    }
+
+    function openBookingWithService(serviceId) {
+      resetBookingState();
+      if (SERVICES[serviceId]) {
+        selectedServices = [serviceId];
+        refreshServicesUI();
+        updateFinalSummary();
+      }
+      document.getElementById('bookingModal').style.display = 'flex';
+    }
+
+    function closeBooking() {
+      document.getElementById('bookingModal').style.display = 'none';
+    }
+
+    function resetBookingState() {
+      selectedServices = [];
+      selectedBarber = null;
+      selectedDateIso = null;
+      selectedDateLabel = null;
+      selectedTime = null;
+      document.getElementById('modalError').textContent = '';
+      document.getElementById('modalSuccess').textContent = '';
+      document.getElementById('customerName').value = '';
+      document.getElementById('phone').value = '';
+      document.getElementById('bookingDate').value = '';
+      refreshServicesUI();
+      refreshBarbersUI();
+      buildTimesGrid();
+      updateFinalSummary();
+    }
+
+    function toggleService(serviceId) {
+      var idx = selectedServices.indexOf(serviceId);
+      if (idx === -1) {
+        selectedServices.push(serviceId);
+      } else {
+        selectedServices.splice(idx, 1);
+      }
+      refreshServicesUI();
+      updateFinalSummary();
+    }
+
+    function refreshServicesUI() {
+      var cards = document.querySelectorAll('.service-option');
+      cards.forEach(function (c) {
+        var id = c.getAttribute('data-service-id');
+        if (selectedServices.indexOf(id) !== -1) {
+          c.classList.add('selected');
+        } else {
+          c.classList.remove('selected');
+        }
+      });
+    }
+
+    function selectBarber(name) {
+      selectedBarber = name;
+      refreshBarbersUI();
+      updateFinalSummary();
+    }
+
+    function refreshBarbersUI() {
+      var chips = document.querySelectorAll('.barber-chip');
+      chips.forEach(function (chip) {
+        var name = chip.getAttribute('data-barber');
+        if (name === selectedBarber) chip.classList.add('selected');
+        else chip.classList.remove('selected');
+      });
+    }
+
+    function handleDateChange(value) {
+      selectedDateIso = value || null;
+      selectedTime = null;
+      if (value) {
+        var d = new Date(value + 'T00:00:00');
+        var weekdayName = WEEKDAYS_AR[d.getDay()];
+        selectedDateLabel = weekdayName + ' ' + d.getDate() + '/' + (d.getMonth() + 1);
+      } else {
+        selectedDateLabel = null;
+      }
+      buildTimesGrid();
+      updateFinalSummary();
+    }
+
+    function generateTimeSlots() {
+      var slots = [];
+      var startHour = 9;
+      var endHour = 17;
+      var halfHours = [0, 30];
+      for (var h = startHour; h <= endHour; h++) {
+        for (var j = 0; j < halfHours.length; j++) {
+          var m = halfHours[j];
+          if (h === endHour && m === 30) {
+            slots.push('17:30');
+          } else if (h === endHour && m > 0) {
+            continue;
+          } else {
+            var hh = (h < 10 ? '0' + h : '' + h);
+            var mm = m === 0 ? '00' : '30';
+            slots.push(hh + ':' + mm);
+          }
+        }
+      }
+      return slots;
+    }
+
+    function isSlotBooked(isoDate, time) {
+      for (var i = 0; i < bookings.length; i++) {
+        var b = bookings[i];
+        if (b.booking_date === isoDate && b.booking_time === time && b.status !== 'cancelled') {
+          return true;
+        }
+      }
+      return false;
+    }
+
+    function buildTimesGrid() {
+      var container = document.getElementById('timesGrid');
+      container.innerHTML = '';
+      if (!selectedDateIso) return;
+      var slots = generateTimeSlots();
+      for (var i = 0; i < slots.length; i++) {
+        var slot = slots[i];
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'time-chip';
+        btn.textContent = slot;
+        if (isSlotBooked(selectedDateIso, slot)) {
+          btn.classList.add('disabled');
+        } else {
+          (function (timeStr) {
+            btn.onclick = function () {
+              if (btn.classList.contains('disabled')) return;
+              selectedTime = timeStr;
+              var all = container.querySelectorAll('.time-chip');
+              all.forEach(function (b) { b.classList.remove('selected'); });
+              btn.classList.add('selected');
+              updateFinalSummary();
+            };
+          })(slot);
+        }
+        if (selectedTime === slot && !isSlotBooked(selectedDateIso, slot)) {
+          btn.classList.add('selected');
+        }
+        container.appendChild(btn);
+      }
+    }
+
+    function updateFinalSummary() {
+      var el = document.getElementById('finalSummary');
+      if (selectedServices.length === 0 && !selectedDateIso && !selectedTime && !selectedBarber) {
+        el.textContent = 'سيتم عرض ملخص الحجز هنا بعد اختيار الخدمات والتاريخ والوقت.';
+        return;
+      }
+      var names = [];
+      var totalPrice = 0;
+      var totalDuration = 0;
+      selectedServices.forEach(function (id) {
+        var s = SERVICES[id];
+        if (s) {
+          names.push(s.name);
+          totalPrice += s.price;
+          totalDuration += s.duration;
+        }
+      });
+      var servicesText = names.length ? names.join(' + ') : 'لم يتم اختيار خدمات بعد';
+      var dateText = selectedDateLabel || 'لم يتم اختيار اليوم';
+      var timeText = selectedTime || 'لم يتم اختيار الوقت';
+      var barberText = selectedBarber || 'لم يتم اختيار الحلاق بعد';
+
+      el.innerHTML =
+        '<strong>الخدمات:</strong> ' + servicesText +
+        ' • <strong>الحلاق:</strong> ' + barberText +
+        '<br><strong>اليوم:</strong> ' + dateText +
+        ' • <strong>الوقت:</strong> ' + timeText +
+        '<br><strong>الإجمالي:</strong> ' + totalPrice + ' ر.س • <strong>المدة:</strong> ' + totalDuration + ' دقيقة';
+    }
+
+    function isValidPhone(phone) {
+      return /^05\d{8}$/.test(phone);
+    }
+
+    // submitBk: بدون async/await
+    function submitBk(event) {
+      event.preventDefault();
+      var errEl = document.getElementById('modalError');
+      var successEl = document.getElementById('modalSuccess');
+      errEl.textContent = '';
+      successEl.textContent = '';
+
+      if (selectedServices.length === 0) {
+        errEl.textContent = 'الرجاء اختيار خدمة واحدة على الأقل.';
+        return;
+      }
+      if (!selectedBarber) {
+        errEl.textContent = 'الرجاء اختيار الحلاق.';
+        return;
+      }
+      if (!selectedDateIso) {
+        errEl.textContent = 'الرجاء اختيار تاريخ الحجز.';
+        return;
+      }
+      if (!selectedTime) {
+        errEl.textContent = 'الرجاء اختيار الوقت.';
+        return;
+      }
+      if (isSlotBooked(selectedDateIso, selectedTime)) {
+        errEl.textContent = 'عذراً، هذا الوقت محجوز بالفعل. الرجاء اختيار وقت آخر.';
+        buildTimesGrid();
+        return;
+      }
+
+      var name = document.getElementById('customerName').value.trim();
+      var phone = document.getElementById('phone').value.trim();
+
+      if (name.length < 2) {
+        errEl.textContent = 'الرجاء إدخال اسم صحيح.';
+        return;
+      }
+      if (!isValidPhone(phone)) {
+        errEl.textContent = 'رقم الجوال يجب أن يتكون من 10 أرقام ويبدأ بـ 05.';
+        return;
+      }
+
+      var names = [];
+      var totalPrice = 0;
+      var totalDuration = 0;
+      selectedServices.forEach(function (id) {
+        var s = SERVICES[id];
+        if (s) {
+          names.push(s.name);
+          totalPrice += s.price;
+          totalDuration += s.duration;
+        }
+      });
+
+      var displayDate = selectedDateLabel || selectedDateIso;
+
+      var booking = {
+        id: 'local-' + new Date().getTime(),
+        customer_name: name,
+        phone: phone,
+        service: 'الحلاق: ' + selectedBarber + ' • ' + names.join(' + '),
+        price: totalPrice,
+        duration: totalDuration,
+        booking_date: selectedDateIso,
+        booking_time: selectedTime,
+        status: 'confirmed',
+        created_at: new Date().toISOString()
+      };
+
+      addBk(booking);
+
+      successEl.textContent = 'تم تأكيد حجزك بنجاح! يسعدنا استقبالك في فن الرجل.';
+      document.getElementById('bookingForm').reset();
+      resetBookingState();
+      setTimeout(function () {
+        closeBooking();
+      }, 1400);
+    }
+
+    // addBk: يحفظ محلياً أولاً ثم Supabase بدون await
+    function addBk(booking) {
+      bookings.push(booking);
+      saveLocal();
+      refreshAllViews();
+
+      supabaseClient
+        .from('bookings')
+        .insert([{
+          customer_name: booking.customer_name,
+          phone: booking.phone,
+          service: booking.service,
+          price: booking.price,
+          duration: booking.duration,
+          booking_date: booking.booking_date,
+          booking_time: booking.booking_time,
+          status: booking.status
+        }])
+        .then(function (result) {
+          if (result && !result.error && result.data && result.data.length > 0) {
+            var saved = result.data[0];
+            for (var i = 0; i < bookings.length; i++) {
+              if (bookings[i].id === booking.id) {
+                bookings[i].id = saved.id;
+                bookings[i].created_at = saved.created_at || bookings[i].created_at;
+                break;
+              }
+            }
+            saveLocal();
+            refreshAllViews();
+          }
+        })
+        .catch(function () { });
+    }
+
+    function loadLocal() {
+      var raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) {
+        bookings = [];
+        return;
+      }
+      try {
+        var parsed = JSON.parse(raw);
+        if (parsed && parsed.length) {
+          bookings = parsed;
+        } else {
+          bookings = [];
+        }
+      } catch (e) {
+        bookings = [];
+      }
+    }
+
+    function saveLocal() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(bookings));
+      } catch (e) {}
+    }
+
+    function syncFromSB() {
+      supabaseClient
+        .from('bookings')
+        .select('*')
+        .order('created_at', { ascending: true })
+        .then(function (result) {
+          if (result && !result.error && result.data) {
+            bookings = result.data.map(function (b) {
+              return {
+                id: b.id,
+                customer_name: b.customer_name,
+                phone: b.phone,
+                service: b.service,
+                price: b.price,
+                duration: b.duration,
+                booking_date: b.booking_date,
+                booking_time: b.booking_time,
+                status: b.status || 'confirmed',
+                created_at: b.created_at || new Date().toISOString()
+              };
+            });
+            saveLocal();
+            refreshAllViews();
+          }
+        })
+        .catch(function () { });
+    }
+
+    function deleteBooking(id) {
+      var idx = -1;
+      for (var i = 0; i < bookings.length; i++) {
+        if (String(bookings[i].id) === String(id)) {
+          idx = i;
+          break;
+        }
+      }
+      if (idx === -1) return;
+      bookings.splice(idx, 1);
+      saveLocal();
+      refreshAllViews();
+
+      if (typeof id === 'number' || /^\d+$/.test(String(id))) {
+        supabaseClient
+          .from('bookings')
+          .delete()
+          .eq('id', id)
+          .then(function () { })
+          .catch(function () { });
+      }
+    }
+
+    function getFilteredBookings() {
+      var now = new Date();
+      var todayIso = now.toISOString().slice(0, 10);
+
+      if (currentFilter === 'all') return bookings.slice();
+
+      var result = [];
+      if (currentFilter === 'today') {
+        bookings.forEach(function (b) {
+          if (b.booking_date === todayIso) result.push(b);
+        });
+      } else if (currentFilter === 'week') {
+        var day = now.getDay();
+        var diffToSunday = day;
+        var weekStart = new Date(now.getFullYear(), now.getMonth(), now.getDate() - diffToSunday);
+        var weekEnd = new Date(weekStart.getFullYear(), weekStart.getMonth(), weekStart.getDate() + 7);
+        bookings.forEach(function (b) {
+          if (!b.booking_date) return;
+          var d = new Date(b.booking_date);
+          if (d >= weekStart && d < weekEnd) result.push(b);
+        });
+      } else if (currentFilter === 'month') {
+        var month = now.getMonth();
+        var year = now.getFullYear();
+        bookings.forEach(function (b) {
+          if (!b.booking_date) return;
+          var d = new Date(b.booking_date);
+          if (d.getMonth() === month && d.getFullYear() === year) result.push(b);
+        });
+      }
+      return result;
+    }
+
+    function refreshStats() {
+      var list = getFilteredBookings();
+      var total = list.length;
+      var revenue = 0;
+      for (var i = 0; i < list.length; i++) {
+        var p = parseFloat(list[i].price || 0);
+        if (!isNaN(p)) revenue += p;
+      }
+      var avg = total > 0 ? Math.round(revenue / total) : 0;
+
+      var now = new Date();
+      var todayIso = now.toISOString().slice(0, 10);
+      var allToday = 0;
+      bookings.forEach(function (b) {
+        if (b.booking_date === todayIso) allToday++;
+      });
+
+      document.getElementById('statTotal').textContent = total;
+      document.getElementById('statRevenue').textContent = revenue;
+      document.getElementById('statAverage').textContent = avg;
+      document.getElementById('statToday').textContent = allToday;
+
+      var weekBookings = 0;
+      var day = now.getDay();
+      var diffToSunday = day;
+      var weekStart = new Date(now.getFullYear(), now.getMonth(), now.getDate() - diffToSunday);
+      var weekEnd = new Date(weekStart.getFullYear(), weekStart.getMonth(), weekStart.getDate() + 7);
+      bookings.forEach(function (b) {
+        if (!b.booking_date) return;
+        var d = new Date(b.booking_date);
+        if (d >= weekStart && d < weekEnd) weekBookings++;
+      });
+      document.getElementById('heroWeekBookings').textContent = weekBookings;
+      document.getElementById('heroAvgRevenue').textContent = avg;
+
+      var loyal = Math.round(bookings.length * 0.6);
+      document.getElementById('aboutLoyalClients').textContent = loyal;
+
+      var nextSlot = findNextAvailableSlot();
+      document.getElementById('heroNextSlot').textContent = nextSlot;
+    }
+
+    function findNextAvailableSlot() {
+      var now = new Date();
+      for (var i = 0; i < 7; i++) {
+        var d = new Date(now.getFullYear(), now.getMonth(), now.getDate() + i);
+        var iso = d.toISOString().slice(0, 10);
+        var slots = generateTimeSlots();
+        for (var j = 0; j < slots.length; j++) {
+          if (!isSlotBooked(iso, slots[j])) {
+            var label = (i === 0 ? 'اليوم' : (i === 1 ? 'غداً' : WEEKDAYS_AR[d.getDay()]));
+            return label + ' ' + slots[j];
+          }
+        }
+      }
+      return 'غير متاح حالياً';
+    }
+
+    function refreshAdminTable() {
+      var tbody = document.getElementById('adminTableBody');
+      tbody.innerHTML = '';
+      var list = getFilteredBookings();
+      list.sort(function (a, b) {
+        var aKey = (a.booking_date || '') + ' ' + (a.booking_time || '');
+        var bKey = (b.booking_date || '') + ' ' + (b.booking_time || '');
+        return aKey < bKey ? -1 : aKey > bKey ? 1 : 0;
+      });
+      for (var i = 0; i < list.length; i++) {
+        var b = list[i];
+        var tr = document.createElement('tr');
+        tr.innerHTML =
+          '<td>' + (b.customer_name || '') + '</td>' +
+          '<td>' + (b.service || '') + '</td>' +
+          '<td>' + (b.booking_date || '') + '</td>' +
+          '<td>' + (b.booking_time || '') + '</td>' +
+          '<td>' + (b.price || 0) + '</td>' +
+          '<td><button class="btn-delete" onclick="deleteBooking(' + JSON.stringify(b.id) + ')">حذف</button></td>';
+        tbody.appendChild(tr);
+      }
+    }
+
+    function buildCalendar() {
+      var container = document.getElementById('calendarWeek');
+      container.innerHTML = '';
+      var now = new Date();
+      var day = now.getDay();
+      var diffToSunday = day;
+      var weekStart = new Date(now.getFullYear(), now.getMonth(), now.getDate() - diffToSunday);
+      var weekEnd = new Date(weekStart.getFullYear(), weekStart.getMonth(), weekStart.getDate() + 7);
+      var label = weekStart.getDate() + '/' + (weekStart.getMonth() + 1) + ' - ' +
+        weekEnd.getDate() + '/' + (weekEnd.getMonth() + 1);
+      document.getElementById('calendarWeekLabel').textContent = label;
+
+      var activeIso = weekStart.toISOString().slice(0, 10);
+      for (var i = 0; i < 7; i++) {
+        var d = new Date(weekStart.getFullYear(), weekStart.getMonth(), weekStart.getDate() + i);
+        var iso = d.toISOString().slice(0, 10);
+        var count = 0;
+        bookings.forEach(function (b) {
+          if (b.booking_date === iso) count++;
+        });
+        var dayEl = document.createElement('div');
+        dayEl.className = 'calendar-day' + (iso === activeIso ? ' active' : '');
+        dayEl.setAttribute('data-iso', iso);
+        dayEl.innerHTML =
+          '<div class="calendar-day-name">' + WEEKDAYS_AR[d.getDay()] + '</div>' +
+          '<div class="calendar-day-date">' + d.getDate() + '</div>' +
+          '<div class="calendar-day-count">' + count + ' حجز</div>';
+        (function (isoDate) {
+          dayEl.onclick = function () {
+            var all = container.querySelectorAll('.calendar-day');
+            all.forEach(function (x) { x.classList.remove('active'); });
+            dayEl.classList.add('active');
+            showCalendarDetail(isoDate);
+          };
+        })(iso);
+        container.appendChild(dayEl);
+      }
+      showCalendarDetail(activeIso);
+    }
+
+    function showCalendarDetail(isoDate) {
+      var box = document.getElementById('calendarDetail');
+      box.innerHTML = '';
+      var list = [];
+      bookings.forEach(function (b) {
+        if (b.booking_date === isoDate) list.push(b);
+      });
+      if (list.length === 0) {
+        box.textContent = 'لا توجد حجوزات مسجلة لهذا اليوم.';
+        return;
+      }
+      list.sort(function (a, b) {
+        return (a.booking_time || '') < (b.booking_time || '') ? -1 : 1;
+      });
+      for (var i = 0; i < list.length; i++) {
+        var b = list[i];
+        var div = document.createElement('div');
+        div.className = 'calendar-detail-item';
+        div.textContent = (b.booking_time || '') + ' — ' + (b.customer_name || '') + ' (' + (b.service || '') + ')';
+        box.appendChild(div);
+      }
+    }
+
+    function refreshAllViews() {
+      refreshStats();
+      refreshAdminTable();
+      buildCalendar();
+      buildTimesGrid();
+    }
+
+    function setAdminFilter(filter) {
+      currentFilter = filter;
+      var chips = document.querySelectorAll('.filter-chip');
+      chips.forEach(function (c) {
+        var val = c.getAttribute('data-filter');
+        if (val === filter) c.classList.add('active');
+        else c.classList.remove('active');
+      });
+      refreshAllViews();
+    }
+
+    function handleAdminLogin() {
+      var pwd = document.getElementById('adminPassword').value;
+      var err = document.getElementById('adminError');
+      if (pwd === 'fan2025') {
+        err.textContent = '';
+        document.getElementById('adminLoginArea').style.display = 'none';
+        document.getElementById('adminMain').style.display = 'block';
+      } else {
+        err.textContent = 'رمز المرور غير صحيح.';
+      }
+    }
+
+    function updateAdminVisibility() {
+      var adminPage = document.getElementById('adminPage');
+      if (location.hash === '#admin') {
+        adminPage.style.display = 'block';
+      } else {
+        adminPage.style.display = 'none';
+      }
+    }
+
+    window.addEventListener('hashchange', updateAdminVisibility);
+
+    window.onload = function () {
+      document.getElementById('footerYear').textContent = new Date().getFullYear();
+      loadLocal();
+      refreshAllViews();
+      syncFromSB();
+      updateAdminVisibility();
+    };
+  </script>
+</body>
+</html>
+```
